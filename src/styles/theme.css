@@ -528,3 +528,23 @@ h1{font-weight:650}
 .sb-two{background:#0068ff}
 .sb-three{background:linear-gradient(135deg,#0a7cff,#a334fa 60%,#ff5c87)}
 @media (max-width:820px){.side-book{display:none}}
+
+/* Menu điện thoại */
+.menu-btn{display:none;width:44px;height:44px;border:1px solid rgba(255,255,255,.28);border-radius:12px;background:rgba(255,255,255,.08);cursor:pointer;padding:0;position:relative;flex:none}
+.menu-btn span{position:absolute;left:11px;right:11px;height:2px;border-radius:2px;background:#fff;transition:transform .25s var(--ease),opacity .2s,top .25s var(--ease)}
+.menu-btn span:nth-child(1){top:14px}
+.menu-btn span:nth-child(2){top:21px}
+.menu-btn span:nth-child(3){top:28px}
+.menu-btn.open span:nth-child(1){top:21px;transform:rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){top:21px;transform:rotate(-45deg)}
+.m-menu{display:none}
+@media (max-width:820px){
+  .menu-btn{display:block}
+  .nav{gap:10px}
+  .m-menu:not([hidden]){display:block;background:rgba(28,16,11,.98);border-top:1px solid rgba(255,255,255,.1);padding:6px 16px 14px;box-shadow:0 18px 30px rgba(0,0,0,.35)}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;color:#fff;text-decoration:none;font-weight:600;font-size:16.5px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .m-menu a:last-child{border-bottom:0}
+  .m-menu a[aria-current="page"]{color:var(--gold)}
+  .m-menu svg{width:18px;height:18px;opacity:.5}
+}

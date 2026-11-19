@@ -17,6 +17,31 @@ const links = [
     <nav class="nav" aria-label="Menu chính">
       {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>)}
       <a href="#dat-ban" class="btn btn-rust">Đặt bàn</a>
+      <button class="menu-btn" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="m-menu">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
   </div>
+  <nav class="m-menu" id="m-menu" aria-label="Menu điện thoại" hidden>
+    {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}<svg><use href="#i-arrow"/></svg></a>)}
+  </nav>
 </header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const menu = document.getElementById('m-menu');
+  if (btn && menu) {
+    const set = (open: boolean) => {
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+      btn.classList.toggle('open', open);
+    };
+    btn.addEventListener('click', () => set(menu.hidden));
+    menu.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    document.addEventListener('click', (e) => {
+      if (!menu.hidden && !(e.target as HTMLElement).closest('#top')) set(false);
+    });
+  }
+</script>
