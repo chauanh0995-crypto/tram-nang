@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const url = `${site.url}/blog/${post.id}/`;
+const related = posts.filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: d.title,
+  description: d.description,
+  image: new URL(d.cover, site.url).href,
+  datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
+  mainEntityOfPage: url,
+  inLanguage: 'vi',
+  author: { '@type': 'Organization', name: site.name, url: `${site.url}/` },
+  publisher: { '@id': `${site.url}/#restaurant` },
+}, {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.url}/blog/` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url },
+  ],
+}];
+---
+<Base title={d.seoTitle ?? `${d.title} | Trạm Nắng`} description={d.description} image={d.cover} type="article" current="blog" solidHeader schema={schema}>
+  <section class="page-hero">
+    <img src={d.cover} alt="" loading="eager">
+    <div class="wrap" style="max-width:760px">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / <a href="/blog/">Blog</a></nav>
+      <h1>{d.title}</h1>
+      <div class="meta">
+        <time datetime={d.date.toISOString()}>{d.date.toLocaleDateString('vi-VN')}</time>
+        {d.updated && <span>Cập nhật {d.updated.toLocaleDateString('vi-VN')}</span>}
+      </div>
+    </div>
+  </section>
+  <article class="article">
+    <div class="wrap">
+      <img src={d.cover} alt={d.coverAlt} style="border-radius:20px;margin-bottom:32px;width:100%">
+      <div class="prose"><Content /></div>
+      <div class="cta-box">
+        <div><b>Giữ bàn ngắm hoàng hôn</b><span>Gọi hoặc nhắn Zalo {site.phoneDisplay}</span></div>
+        <div class="btns">
+          <a class="btn btn-rust" href={`tel:${site.phone}`}>Gọi đặt bàn</a>
+          <a class="btn btn-ghost" href={site.zalo} target="_blank" rel="noopener">Nhắn Zalo</a>
+        </div>
+      </div>
+      {related.length > 0 && (
+        <div class="related">
+          <h2>Bài viết khác</h2>
+          <div class="posts" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">{related.map((p) => <PostCard post={p} />)}</div>
+        </div>
+      )}
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,240 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import WeatherMini from '../components/Weather.astro';
+import Amenities from '../components/Amenities.astro';
+import SpaceSection from '../components/SpaceSection.astro';
+import PartySection from '../components/PartySection.astro';
+import { menu, picks, findDish, vnd } from '../data/menu';
+import { site } from '../data/site';
+
+const dishes = picks.map(findDish);
+const posts = (await getCollection('blog', (p) => !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+// Không tính món gọi thêm (kim chi) khi đếm món và tìm giá thấp nhất.
+const main = (g: (typeof menu)[number]) => g.items.filter((d) => !d.name.startsWith('Gọi thêm'));
+const food = menu.filter((g) => g.id !== 'do-uong');
+const foodCount = food.reduce((n, g) => n + main(g).length, 0);
+const foodFrom = Math.min(...food.flatMap((g) => main(g).map((d) => d.price)));
+const grillCount = main(menu.find((g) => g.id === 'bbq')!).length;
+const cats = menu.map((g) => ({ ...g, count: main(g).length, from: Math.min(...main(g).map((d) => d.price)) }));
+
+const ticker = ['View tháp Vinaphone', 'Nướng than tại bàn', 'Gà Kampot', 'Sườn tảng đút lò', 'Lẩu cá tầm', 'Decor sinh nhật miễn phí', 'Có khu trong nhà', 'Bãi đậu xe lớn', 'Hoàng hôn Đà Lạt'];
+---
+<Base
+  title="Trạm Nắng BBQ Đà Lạt – Quán nướng view tháp Vinaphone, decor sinh nhật miễn phí"
+  description={`Trạm Nắng BBQ & More, 18 Đống Đa Đà Lạt: quán nướng view tháp Vinaphone và hoàng hôn thành phố, ${foodCount} món nướng, lẩu, decor sinh nhật miễn phí, có khu trong nhà, bãi đậu xe lớn. Đặt bàn ${site.phoneDisplay}.`}
+  current="home"
+>
+  <section class="hero" aria-label="Giới thiệu">
+    <picture>
+      <img src="/images/hero-hoang-hon-lon.webp" alt="Bàn tiệc nướng và lẩu trên sàn gỗ Trạm Nắng lúc hoàng hôn, khách chỉ tay về phía tháp Vinaphone và thành phố Đà Lạt" fetchpriority="high">
+    </picture>
+    <div class="wrap">
+      <span class="eyebrow">BBQ &amp; More · Đà Lạt</span>
+      <h1>Quán nướng view tháp Vinaphone, <em>ngắm hoàng hôn</em> Đà Lạt</h1>
+      <p>Nướng than tại bàn, lẩu nóng và sàn gỗ nhìn thẳng ra trung tâm thành phố. Decor sinh nhật, kỷ niệm miễn phí.</p>
+      <div class="ctas">
+        <a href="#dat-ban" class="btn btn-rust">Đặt bàn ngay <svg><use href="#i-arrow"/></svg></a>
+        <a href="/thuc-don/" class="btn btn-ghost">Xem thực đơn</a>
+        <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-pin"/></svg>Bản đồ</a>
+      </div>
+      <div class="hero-info">
+        <span><svg><use href="#i-clock"/></svg>15h – 22h hằng ngày</span>
+        <span><svg><use href="#i-pin"/></svg>{site.street}, Đà Lạt</span>
+        <span><svg><use href="#i-phone"/></svg>{site.phoneDisplay}</span>
+      </div>
+      <WeatherMini compact />
+    </div>
+  </section>
+
+  <div class="usp-band">
+    <div class="wrap">
+      <div class="usps">
+        <a class="usp" href="#khong-gian">
+          <span class="ic"><svg><use href="#i-tower"/></svg></span>
+          <span><b>View tháp Vinaphone</b><small>Ngắm hoàng hôn và phố lên đèn</small></span>
+        </a>
+        <a class="usp" href="#mon-nen-thu">
+          <span class="ic"><svg><use href="#i-flame"/></svg></span>
+          <span><b>{foodCount} món nướng, lẩu</b><small>Nướng than tại bàn, từ {vnd(foodFrom)}đ</small></span>
+        </a>
+        <a class="usp" href="#tiec-sinh-nhat">
+          <span class="ic"><svg><use href="#i-cake"/></svg></span>
+          <span><b>Decor miễn phí</b><small>Tiệc sinh nhật, kỷ niệm</small></span>
+        </a>
+        <a class="usp" href="#tien-ich">
+          <span class="ic"><svg><use href="#i-roof"/></svg></span>
+          <span><b>Có khu trong nhà</b><small>Trời mưa vẫn ngồi thoải mái</small></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      {[0, 1].map(() => (
+        <ul>{ticker.map((t) => <li>{t}<svg><use href="#i-sun"/></svg></li>)}</ul>
+      ))}
+    </div>
+  </div>
+
+  <section class="why" id="uu-the">
+    <div class="wrap">
+      <div class="head center reveal">
+        <span class="eyebrow">Vì sao chọn Trạm Nắng</span>
+        <h2>Bốn lý do chọn Trạm Nắng</h2>
+      </div>
+      <div class="why-grid four">
+        <a class="why-card reveal" href="/khong-gian/">
+          <div class="img"><img src="/images/san-go-hoang-hon.webp" alt="Sàn gỗ Trạm Nắng lúc hoàng hôn, phía sau là tháp Vinaphone và sân cỏ giăng đèn" loading="lazy" style="object-position:50% 45%"><span class="num">01</span></div>
+          <div class="body">
+            <div class="ttl"><svg><use href="#i-tower"/></svg><h3>View tháp Vinaphone</h3></div>
+            <p>Sàn gỗ ngoài trời nhìn thẳng ra tháp Vinaphone và các đồi nhà trung tâm. Đẹp nhất lúc hoàng hôn và khi thành phố lên đèn.</p>
+            <span class="lnk">Xem không gian <svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+        <a class="why-card reveal" href="/thuc-don/">
+          <div class="img"><img src="/images/ga-kampot-view-pho.webp" alt="Bàn tiệc Trạm Nắng với gà Kampot, lẩu, khay nướng, salad và rau, phía sau là thành phố Đà Lạt" loading="lazy" style="object-position:50% 70%"><span class="num">02</span></div>
+          <div class="body">
+            <div class="ttl"><svg><use href="#i-flame"/></svg><h3>Món nướng, menu đa dạng</h3></div>
+            <p>{foodCount} món ăn: {grillCount} món nướng than tại bàn, gà Kampot, sườn tảng đút lò, lẩu cá tầm, món ăn chơi, cơm và mì.</p>
+            <span class="lnk">Xem thực đơn và giá <svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+        <a class="why-card reveal" href="/tiec-sinh-nhat/">
+          <div class="img"><img src="/images/decor-tiec-view-thap.webp" alt="Bàn tiệc sinh nhật trang trí hoa, nến và bánh ở Trạm Nắng, phía sau là thành phố Đà Lạt và tháp Vinaphone" loading="lazy" style="object-position:45% 50%"><span class="num">03</span></div>
+          <div class="body">
+            <div class="ttl"><svg><use href="#i-cake"/></svg><h3>Decor sinh nhật, kỷ niệm miễn phí</h3></div>
+            <p>Hoa, nến, đèn và bánh trên bàn tiệc nhìn ra thành phố. Quán trang trí miễn phí cho tiệc sinh nhật và kỷ niệm.</p>
+            <span class="lnk">Đặt tiệc, nhận decor <svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+        <a class="why-card reveal" href="#ban-do">
+          <div class="img"><img src="/images/flycam-dem-toan-canh.webp" alt="Toàn cảnh Trạm Nắng về đêm nhìn từ trên cao: khu nhà có mái, sân cỏ giăng đèn và đường vào quán" loading="lazy"><span class="num">04</span></div>
+          <div class="body">
+            <div class="ttl"><svg><use href="#i-roof"/></svg><h3>Tiện ích đầy đủ</h3></div>
+            <ul class="ticks">
+              <li>Có không gian trong nhà, mưa vẫn ngồi thoải mái</li>
+              <li>Gần trung tâm Đà Lạt</li>
+              <li>Bãi đậu xe rộng</li>
+            </ul>
+            <span class="lnk">Xem bản đồ <svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </a>
+      </div>
+      <Amenities light />
+    </div>
+  </section>
+
+  <section id="mon-nen-thu">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Thực đơn</span><h2 style="margin-top:10px">Món nên thử</h2></div>
+        <p>Những món khách gọi nhiều nhất. Lần đầu ghé, cứ bắt đầu từ đây.</p>
+      </div>
+      <div class="picks">
+        {dishes.map((d, i) => (
+          <article class:list={['card', 'reveal', { big: i === 0 }]}>
+            <div class="ph"><img src={`/images/${d.img}.webp`} alt={d.name} loading="lazy"></div>
+            <div class="info">
+              <div class="tagrow">{(d.note || d.best) && <span class="badge">{d.note ?? 'Best seller'}</span>}</div>
+              <h3>{d.name}</h3>
+              {d.en && <span class="en">{d.en}</span>}
+              {i === 0 && <p class="lede">Một khay đủ gà, sườn, tôm và rau củ nướng sẵn. Món dễ chọn nhất cho lần đầu ghé quán.</p>}
+              <span class="price">{vnd(d.price)}đ</span>
+              {i === 0 && <a href="#dat-ban" class="btn btn-rust">Đặt bàn ngay <svg><use href="#i-arrow"/></svg></a>}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="feature reveal">
+        <div class="clip">
+          <video autoplay muted loop playsinline preload="none" poster="/images/ga-kampot-mo-nap.jpg" aria-label="Mở nắp niêu đất gà Kampot tại bàn, phía sau là bảng hiệu Trạm Nắng">
+            <source src="/video/ga-kampot-mo-nap.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="f-text">
+          <span class="eyebrow">Signature</span>
+          <h3>Gà Kampot, mở nắp ngay tại bàn</h3>
+          <p>Gà nguyên con đựng trong niêu đất, một trong những món chính được gọi nhiều nhất của nhà Nắng.</p>
+          <a href="/thuc-don/#signature" class="btn btn-rust">Xem món Signature <svg><use href="#i-arrow"/></svg></a>
+        </div>
+        <ul class="sig">
+          <li class="sig-head">Món chính của nhà Nắng</li>
+          {menu[0].items.map((d) => (
+            <li>
+              <img src={`/images/${d.img}.webp`} alt="" loading="lazy">
+              <span>{d.name}{d.best && <em class="badge">Best</em>}<small>{d.en}</small></span>
+              <b>{vnd(d.price)}đ</b>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="subhead reveal">
+        <h3>{foodCount} món ăn và {cats.find((c) => c.id === 'do-uong')!.count} đồ uống</h3>
+        <a href="/thuc-don/">Xem thực đơn đầy đủ →</a>
+      </div>
+      <div class="cats reveal">
+        {cats.map((c) => (
+          <a class="cat" href={`/thuc-don/#${c.id}`}>
+            <b>{c.title}</b>
+            <span>{c.count} món</span>
+            <em>từ {vnd(c.from)}đ</em>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <SpaceSection />
+
+  <PartySection />
+
+  {posts.length > 0 && (
+    <section id="blog">
+      <div class="wrap">
+        <div class="head reveal">
+          <div><span class="eyebrow">Chuyện nhà Nắng</span><h2 style="margin-top:10px">Blog</h2></div>
+          <p>Món ngon, giờ đẹp ngắm hoàng hôn, tiệc tùng và kinh nghiệm ăn uống ở Đà Lạt.</p>
+        </div>
+        <div class="posts">{posts.map((p) => <PostCard post={p} />)}</div>
+        <div class="more"><a href="/blog/" class="btn btn-rust">Xem tất cả bài viết <svg><use href="#i-arrow"/></svg></a></div>
+      </div>
+    </section>
+  )}
+
+  <script>
+    // Clip chỉ chạy khi đang nằm trong màn hình; tắt hẳn nếu máy đặt giảm chuyển động.
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const vids = [...document.querySelectorAll<HTMLVideoElement>('video')];
+    if (reduce) vids.forEach((v) => { v.removeAttribute('autoplay'); v.pause(); });
+    else if ('IntersectionObserver' in window) {
+      const vo = new IntersectionObserver((es) => es.forEach((e) => {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) v.play().catch(() => {}); else v.pause();
+      }), { threshold: 0.15 });
+      vids.forEach((v) => vo.observe(v));
+    }
+
+    // Ảnh không gian trôi nhẹ theo cuộn trang.
+    const imgs = [...document.querySelectorAll<HTMLElement>('.gallery img')];
+    if (imgs.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let tick = false;
+      const move = () => {
+        tick = false;
+        for (const img of imgs) {
+          const r = img.parentElement!.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) continue;
+          const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+          img.style.transform = `scale(1.14) translateY(${(p * -5).toFixed(2)}%)`;
+        }
+      };
+      addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(move); } }, { passive: true });
+      move();
+    }
+  </script>
+</Base>

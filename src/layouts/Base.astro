@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import '../styles/theme.css';
+import Icons from '../components/Icons.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookSection from '../components/BookSection.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  solidHeader?: boolean;
+  current?: string;
+  schema?: Record<string, unknown>[];
+  preload?: string;
+}
+const { title, description, image = site.ogImage, type = 'website', solidHeader = false, current, schema = [], preload } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+
+const restaurant: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  '@id': `${site.url}/#restaurant`,
+  name: site.name,
+  url: `${site.url}/`,
+  image: new URL(site.ogImage, site.url).href,
+  telephone: '+84' + site.phone.slice(1),
+  servesCuisine: ['BBQ', 'Lẩu', 'Món Việt'],
+  priceRange: '15.000đ – 390.000đ',
+  hasMap: site.mapsUrl,
+  amenityFeature: ['Khu vực trong nhà', 'Chỗ ngồi ngoài trời', 'Bãi đậu xe lớn', 'Trang trí tiệc sinh nhật miễn phí'].map((name) => ({ '@type': 'LocationFeatureSpecification', name, value: true })),
+  openingHoursSpecification: site.opens ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: site.opens, closes: site.closes }] : undefined,
+  hasMenu: `${site.url}/thuc-don/`,
+  acceptsReservations: 'True',
+  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.ward, addressRegion: 'Lâm Đồng', addressCountry: 'VN' },
+  sameAs: [site.facebook, site.tiktok],
+};
+const jsonLd = [restaurant, ...schema];
+---
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<meta name="theme-color" content="#3a2018">
+<meta property="og:type" content={type}>
+<meta property="og:site_name" content={site.name}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:locale" content="vi_VN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="sitemap" href="/sitemap-index.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,400..600&display=swap" rel="stylesheet">
+{preload && <link rel="preload" as="image" href={preload}>}
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd.length === 1 ? jsonLd[0] : jsonLd)} />
+</head>
+<body>
+<Icons />
+<Header solid={solidHeader} current={current} />
+<main>
+  <slot />
+  <BookSection />
+</main>
+<Footer />
+<script>
+  const top = document.getElementById('top')!;
+  if (!top.classList.contains('always')) {
+    const onScroll = () => top.classList.toggle('solid', scrollY > 40);
+    onScroll(); addEventListener('scroll', onScroll, { passive: true });
+  }
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((e) => e.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((e) => io.observe(e));
+  }
+</script>
+</body>
+</html>

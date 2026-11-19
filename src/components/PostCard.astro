@@ -1,0 +1,21 @@
+---
+interface Props { post: any; featured?: boolean }
+const { post, featured = false } = Astro.props;
+const d = post.data.date as Date;
+const minutes = Math.max(2, Math.round(((post.body ?? '').split(/\s+/).length) / 220));
+---
+<a class:list={['post-card', 'reveal', { featured }]} href={`/blog/${post.id}/`}>
+  <div class="thumb">
+    <img src={post.data.cover} alt={post.data.coverAlt} loading="lazy">
+    {post.data.category && <span class="cat-tag">{post.data.category}</span>}
+  </div>
+  <div class="body">
+    <div class="meta-row">
+      <time datetime={d.toISOString()}>{d.toLocaleDateString('vi-VN')}</time>
+      <span>{minutes} phút đọc</span>
+    </div>
+    {featured ? <h2>{post.data.title}</h2> : <h3>{post.data.title}</h3>}
+    <p>{post.data.description}</p>
+    <span class="read">Đọc tiếp <svg><use href="#i-arrow"/></svg></span>
+  </div>
+</a>

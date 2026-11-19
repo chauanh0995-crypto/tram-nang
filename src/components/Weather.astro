@@ -1,0 +1,87 @@
+---
+// Hộp thời tiết Đà Lạt: lấy số liệu trực tiếp từ Open-Meteo (miễn phí, không cần khóa).
+// compact: chỉ hiện thẻ nhỏ (dùng trong ảnh cover). Không tải được thì hộp tự ẩn.
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<div class:list={[compact ? 'wx-mini' : 'wx reveal']} data-wxbox hidden>
+  <div class="wx-card">
+    <div class="wx-now">
+      <div>
+        <span class="wx-city">Đà Lạt</span>
+        <b class="wx-temp" data-wx="temp">--°</b>
+      </div>
+      <div class="wx-desc">
+        <span class="wx-ico" data-wx="icon" aria-hidden="true"></span>
+        <span data-wx="desc"></span>
+      </div>
+    </div>
+    <ul class="wx-days" data-wx="days"></ul>
+    {compact && <div class="wx-sun" data-wx="sun"></div>}
+  </div>
+  {!compact && (
+    <div class="wx-note">
+      <span class="eyebrow" style="color:var(--gold)">Thời tiết hôm nay</span>
+      <h3 data-wx="headline">Hoàng hôn hôm nay</h3>
+      <p data-wx="advice"></p>
+      <a href="#dat-ban" class="btn btn-rust">Đặt bàn hôm nay <svg><use href="#i-arrow"/></svg></a>
+      <small>Nguồn: Open-Meteo, cập nhật theo giờ.</small>
+    </div>
+  )}
+</div>
+
+<script>
+  // Mã thời tiết WMO → [biểu tượng, mô tả, có mưa không]
+  const wmo = (c: number): [string, string, boolean] => {
+    if (c === 0) return ['☀️', 'Trời quang', false];
+    if (c <= 2) return ['🌤️', 'Ít mây', false];
+    if (c === 3) return ['☁️', 'Nhiều mây', false];
+    if (c <= 48) return ['🌫️', 'Sương mù', false];
+    if (c <= 57) return ['🌦️', 'Mưa phùn', true];
+    if (c <= 67) return ['🌧️', 'Mưa', true];
+    if (c <= 82) return ['🌦️', 'Mưa rào', true];
+    if (c <= 99) return ['⛈️', 'Mưa dông', true];
+    return ['🌤️', '', false];
+  };
+  const dayName = (iso: string, i: number) =>
+    i === 0 ? 'Hôm nay' : i === 1 ? 'Ngày mai'
+      : new Date(iso + 'T12:00:00+07:00').toLocaleDateString('vi-VN', { weekday: 'long', timeZone: 'Asia/Ho_Chi_Minh' }).replace(/^./, (m) => m.toUpperCase());
+
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=11.9404&longitude=108.4583'
+    + '&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,sunset'
+    + '&timezone=Asia%2FHo_Chi_Minh&forecast_days=3';
+
+  const boxes = [...document.querySelectorAll<HTMLElement>('[data-wxbox]')];
+  if (boxes.length) fetch(url).then((r) => (r.ok ? r.json() : Promise.reject())).then((d) => {
+    const [ico, desc, rainNow] = wmo(d.current.weather_code);
+    const days = d.daily.time.map((t: string, i: number) => {
+      const [di, dd] = wmo(d.daily.weather_code[i]);
+      return `<li><span>${dayName(t, i)}</span><span class="wx-ico" title="${dd}">${di}</span>`
+        + `<span><b>${Math.round(d.daily.temperature_2m_max[i])}°</b> <i>${Math.round(d.daily.temperature_2m_min[i])}°</i></span></li>`;
+    }).join('');
+
+    const [h, m] = String(d.daily.sunset[0]).slice(11, 16).split(':').map(Number);
+    const sunset = `${h}h${String(m).padStart(2, '0')}`;
+    const a = new Date(2000, 0, 1, h, m - 45);
+    const arrive = `${a.getHours()}h${String(a.getMinutes()).padStart(2, '0')}`;
+    const rainToday = rainNow || wmo(d.daily.weather_code[0])[2];
+    const advice = rainToday
+      ? `Hôm nay Đà Lạt có thể mưa. Trạm Nắng có khu trong nhà nên bạn vẫn ngồi nướng thoải mái. Trời tạnh thì nên đến trước ${arrive} để kịp ngắm hoàng hôn.`
+      : `Nên đến trước ${arrive} để chọn bàn và nhóm bếp, kịp lúc trời đổi màu. Tối Đà Lạt lạnh, nhớ mang áo khoác.`;
+
+    for (const box of boxes) {
+      const set = (k: string, v: string, html = false) => {
+        const el = box.querySelector<HTMLElement>(`[data-wx="${k}"]`);
+        if (el) html ? (el.innerHTML = v) : (el.textContent = v);
+      };
+      set('temp', Math.round(d.current.temperature_2m) + '°');
+      set('icon', ico);
+      set('desc', desc);
+      set('days', days, true);
+      set('sun', `🌇 Hoàng hôn hôm nay <b>${sunset}</b>` + (rainToday ? ' · Có khu trong nhà' : ''), true);
+      set('headline', `Hoàng hôn hôm nay lúc ${sunset}`);
+      set('advice', advice);
+      box.hidden = false;
+    }
+  }).catch(() => { /* giữ hộp ẩn */ });
+</script>

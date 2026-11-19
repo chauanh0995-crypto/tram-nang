@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import PartySection from '../components/PartySection.astro';
+import { findDish, vnd } from '../data/menu';
+import { site } from '../data/site';
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Tiệc sinh nhật', item: `${site.url}/tiec-sinh-nhat/` },
+  ],
+}];
+
+// Gợi ý thực đơn theo số người, giá cộng từ thực đơn.
+const sets = [
+  { who: 'Nhóm 4 người', items: ['Combo nướng', 'Lẩu gà lá é', 'Bò tảng sốt trứng muối', 'Đậu hũ tắm sốt cay'] },
+  { who: 'Nhóm 6 người', items: ['Gà Kampot', 'Sườn tảng đút lò', 'Lẩu cá tầm', 'Chẳng dừng heo', 'Nầm nướng chao', 'Cơm chiên tỏi trứng'] },
+].map((s) => ({ ...s, total: s.items.reduce((n, name) => n + findDish(name).price, 0) }));
+
+const photos = [
+  { img: 'decor-tiec-view-thap', alt: 'Bàn tiệc sinh nhật có bánh, hoa và nến ở Trạm Nắng, phía sau là thành phố Đà Lạt và tháp Vinaphone', cap: 'Bàn tiệc nhìn ra tháp Vinaphone' },
+  { img: 'ban-tiec-decor-noel', alt: 'Bàn tiệc trang trí dịp Giáng sinh ở Trạm Nắng về đêm', cap: 'Trang trí dịp Giáng sinh' },
+  { img: 'san-co-decor-noel', alt: 'Sân cỏ Trạm Nắng trang trí Giáng sinh với đèn dây', cap: 'Sân cỏ mùa lễ hội' },
+];
+---
+<Base
+  title="Decor sinh nhật, kỷ niệm miễn phí tại Trạm Nắng BBQ Đà Lạt"
+  description="Tổ chức sinh nhật, kỷ niệm ở Đà Lạt tại Trạm Nắng BBQ & More: quán trang trí bàn tiệc miễn phí, sàn gỗ view tháp Vinaphone và hoàng hôn. Đặt tiệc qua Zalo 0865 751 768."
+  image="/images/decor-tiec-view-thap.webp"
+  current="party"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/decor-tiec-view-thap.webp" alt="" loading="eager" style="object-position:50% 45%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Tiệc sinh nhật</nav>
+      <span class="script">Sinh nhật · Kỷ niệm</span>
+      <h1>Decor sinh nhật, kỷ niệm miễn phí</h1>
+      <p>Bàn tiệc có hoa, nến, đèn trên sàn gỗ nhìn ra thành phố Đà Lạt. Bạn báo trước, quán chuẩn bị.</p>
+    </div>
+  </section>
+
+  <PartySection />
+
+  <section class="sets">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Gợi ý thực đơn</span><h2 style="margin-top:10px">Gọi món cho bàn tiệc</h2></div>
+        <p>Hai gợi ý theo số người, giá cộng từ thực đơn và chưa gồm đồ uống. Bạn đổi món tùy ý.</p>
+      </div>
+      <div class="set-grid">
+        {sets.map((s) => (
+          <article class="set reveal">
+            <h3>{s.who}</h3>
+            <ul>{s.items.map((name) => <li><span>{name}</span><b>{vnd(findDish(name).price)}đ</b></li>)}</ul>
+            <div class="sum"><span>Tạm tính</span><b>{vnd(s.total)}đ</b></div>
+          </article>
+        ))}
+      </div>
+      <div class="more"><a href="/thuc-don/" class="btn btn-rust">Xem thực đơn đầy đủ <svg><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </section>
+
+  <section class="space" style="padding-top:72px">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow" style="color:var(--gold)">Hình ảnh</span><h2 style="margin-top:10px">Bàn tiệc quán đã trang trí</h2></div>
+      </div>
+      <div class="trio">
+        {photos.map((p) => (
+          <figure class="reveal"><img src={`/images/${p.img}.webp`} alt={p.alt} loading="lazy"><figcaption>{p.cap}</figcaption></figure>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

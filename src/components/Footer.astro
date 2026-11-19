@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+---
+<footer>
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Trang chủ">
+      <span><b>TRẠM NẮNG</b><small>BBQ &amp; MORE · ĐÀ LẠT</small></span>
+    </a>
+    <div>
+      Đặt bàn: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+      {site.address && <><br>{site.address}</>}
+      {site.hours && <><br>Mở cửa {site.hours}</>}
+      <br><a href="/thuc-don/">Thực đơn</a> · <a href="/blog/">Blog</a>
+    </div>
+    <div class="social">
+      <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook Trạm Nắng"><svg><use href="#i-fb"/></svg></a>
+      <a href={site.tiktok} target="_blank" rel="noopener" aria-label="TikTok Trạm Nắng"><svg><use href="#i-tt"/></svg></a>
+      <a href={site.zalo} target="_blank" rel="noopener" aria-label="Zalo Trạm Nắng"><svg><use href="#i-zalo"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Đặt bàn nhanh">
+  <a class="call" href={`tel:${site.phone}`}><svg><use href="#i-phone"/></svg>Gọi đặt bàn</a>
+  <a class="zl" href={site.zalo} target="_blank" rel="noopener"><svg><use href="#i-zalo"/></svg>Zalo</a>
+  <a class="ms" href={site.messenger} target="_blank" rel="noopener"><svg><use href="#i-mess"/></svg>Messenger</a>
+</nav>
+
+<nav class="side-book" aria-label="Đặt bàn nhanh">
+  <a class="sb-item sb-one" href={`tel:${site.phone}`} title={`Gọi ${site.phoneDisplay}`}><svg><use href="#i-phone"/></svg><span>Gọi {site.phoneDisplay}</span></a>
+  <a class="sb-item sb-two" href={site.zalo} target="_blank" rel="noopener" title="Nhắn Zalo đặt bàn"><svg><use href="#i-zalo"/></svg><span>Nhắn Zalo</span></a>
+  <a class="sb-item sb-three" href={site.messenger} target="_blank" rel="noopener" title="Nhắn Messenger đặt bàn"><svg><use href="#i-mess"/></svg><span>Messenger</span></a>
+</nav>

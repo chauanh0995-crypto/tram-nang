@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site } from '../../data/site';
+
+const posts = (await getCollection('blog', (p) => !p.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [first, ...rest] = posts;
+const cats = [...new Set(posts.map((p) => p.data.category).filter(Boolean))];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Blog Trạm Nắng',
+  url: `${site.url}/blog/`,
+  inLanguage: 'vi',
+  blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, url: `${site.url}/blog/${p.id}/`, datePublished: p.data.date.toISOString() })),
+}];
+---
+<Base
+  title="Blog Trạm Nắng – Ăn gì, ngắm hoàng hôn ở đâu tại Đà Lạt"
+  description="Blog của Trạm Nắng BBQ & More: món nên gọi, giờ đẹp ngắm hoàng hôn, decor sinh nhật, Noel, đêm acoustic và kinh nghiệm ăn nướng ở Đà Lạt."
+  current="blog"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/san-co-hoang-hon.webp" alt="" loading="eager" style="object-position:50% 42%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Blog</nav>
+      <span class="script">Chuyện nhà Nắng</span>
+      <h1>Blog</h1>
+      <p>Món ngon, giờ đẹp ngắm hoàng hôn, tiệc tùng và kinh nghiệm ăn uống ở Đà Lạt.</p>
+    </div>
+  </section>
+
+  <section class="blog-list">
+    <div class="wrap">
+      {first ? (
+        <>
+          <div class="blog-top reveal">
+            <span class="eyebrow">Bài mới nhất</span>
+            {cats.length > 0 && <div class="chips">{cats.map((c) => <span>{c}</span>)}</div>}
+          </div>
+          <PostCard post={first} featured />
+          {rest.length > 0 && (
+            <>
+              <div class="blog-top reveal" style="margin-top:56px"><span class="eyebrow">Tất cả bài viết</span></div>
+              <div class="posts">{rest.map((p) => <PostCard post={p} />)}</div>
+            </>
+          )}
+        </>
+      ) : <p>Chưa có bài viết.</p>}
+    </div>
+  </section>
+</Base>

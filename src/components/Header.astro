@@ -1,0 +1,22 @@
+---
+interface Props { solid?: boolean; current?: string }
+const { solid = false, current = '' } = Astro.props;
+const links = [
+  { href: '/', label: 'Trang chủ', key: 'home' },
+  { href: '/thuc-don/', label: 'Thực đơn', key: 'menu' },
+  { href: '/khong-gian/', label: 'Không gian', key: 'space' },
+  { href: '/tiec-sinh-nhat/', label: 'Tiệc sinh nhật', key: 'party' },
+  { href: '/blog/', label: 'Blog', key: 'blog' },
+];
+---
+<header class:list={['top', { always: solid }]} id="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Trạm Nắng BBQ & More – Trang chủ">
+      <span><b>TRẠM NẮNG</b><small>BBQ &amp; MORE</small></span>
+    </a>
+    <nav class="nav" aria-label="Menu chính">
+      {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>)}
+      <a href="#dat-ban" class="btn btn-rust">Đặt bàn</a>
+    </nav>
+  </div>
+</header>

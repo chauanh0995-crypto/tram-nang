@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import SpaceSection from '../components/SpaceSection.astro';
+import { site } from '../data/site';
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Không gian', item: `${site.url}/khong-gian/` },
+  ],
+}];
+
+const areas = [
+  { img: 'san-go-hoang-hon', alt: 'Sàn gỗ Trạm Nắng lúc hoàng hôn, nhìn ra tháp Vinaphone và thành phố Đà Lạt', pos: '50% 45%',
+    title: 'Sàn gỗ ngắm phố', text: 'Khu bàn trên cao nhìn thẳng ra tháp Vinaphone và các đồi nhà trung tâm. Chỗ đẹp nhất để ngắm hoàng hôn và chụp hình.' },
+  { img: 'san-co-hoang-hon', alt: 'Sân cỏ Trạm Nắng với bàn gỗ và đèn dây lúc hoàng hôn', pos: '50% 60%',
+    title: 'Sân cỏ đèn dây', text: 'Bàn gỗ đặt trên sân cỏ, giăng đèn dây vàng. Rộng rãi, hợp đi nhóm đông và gia đình có trẻ nhỏ.' },
+  { img: 'flycam-dem-san-co', alt: 'Trạm Nắng về đêm nhìn từ trên cao, sân cỏ giăng đèn và khu nhà có mái', pos: '50% 50%',
+    title: 'Khu trong nhà', text: 'Có khu vực trong nhà cho ngày mưa hoặc trời lạnh, nên bữa nướng không bị gián đoạn vì thời tiết.' },
+];
+---
+<Base
+  title="Không gian Trạm Nắng BBQ Đà Lạt – sàn gỗ view tháp Vinaphone, sân cỏ đèn dây"
+  description="Không gian Trạm Nắng BBQ & More: sàn gỗ ngoài trời view tháp Vinaphone và hoàng hôn Đà Lạt, sân cỏ đèn dây, khu trong nhà cho ngày mưa, gần trung tâm, bãi đậu xe rộng."
+  image="/images/flycam-dem-toan-canh.webp"
+  current="space"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/flycam-dem-toan-canh.webp" alt="" loading="eager" style="object-position:50% 62%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Không gian</nav>
+      <span class="script">Không gian</span>
+      <h1>Quán nướng view tháp Vinaphone</h1>
+      <p>Sàn gỗ ngắm phố, sân cỏ đèn dây và khu trong nhà cho ngày mưa, tại {site.address}.</p>
+    </div>
+  </section>
+
+  <section class="areas">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Ba khu vực</span><h2 style="margin-top:10px">Ngồi đâu ở Trạm Nắng?</h2></div>
+        <p>Mỗi khu một kiểu. Khi đặt bàn, bạn nói trước muốn ngồi khu nào để quán giữ chỗ.</p>
+      </div>
+      <div class="area-grid">
+        {areas.map((a) => (
+          <article class="area reveal">
+            <img src={`/images/${a.img}.webp`} alt={a.alt} loading="lazy" style={`object-position:${a.pos}`}>
+            <div><h3>{a.title}</h3><p>{a.text}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <SpaceSection amenities />
+</Base>

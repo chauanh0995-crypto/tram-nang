@@ -1,0 +1,23 @@
+---
+import Amenities from './Amenities.astro';
+interface Props { amenities?: boolean }
+const { amenities = false } = Astro.props;
+---
+<section class="space" id="khong-gian">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow" style="color:var(--gold)">Không gian</span><h2 style="margin-top:10px">Ăn trên đồi, nhìn ra tháp Vinaphone</h2></div>
+      <p>Sàn gỗ ngoài trời, sân cỏ đèn dây và khu trong nhà cho ngày mưa. Đến trước hoàng hôn một chút để kịp thấy trời đổi màu.</p>
+    </div>
+    <div class="gallery mosaic reveal">
+      <figure class="h2"><img src="/images/ban-tiec-hoang-hon.webp" alt="Khách chỉ tay về phía tháp Vinaphone và hoàng hôn bên bàn tiệc nướng, lẩu" loading="lazy"><figcaption>Tháp Vinaphone lúc hoàng hôn</figcaption></figure>
+      <figure class="w2"><img src="/images/flycam-dem-toan-canh.webp" alt="Toàn cảnh Trạm Nắng về đêm nhìn từ flycam: sân cỏ giăng đèn giữa thành phố Đà Lạt" loading="lazy"><figcaption>Trạm Nắng về đêm</figcaption></figure>
+      <figure><img src="/images/ban-tiec-dem-ngam-pho.webp" alt="Bàn nướng trên sàn gỗ về đêm, phía sau là bảng hiệu Trạm Nắng và thành phố lên đèn" loading="lazy" style="object-position:45% 50%"><figcaption>Phố lên đèn</figcaption></figure>
+      <figure class="w2"><img src="/images/hero-hoang-hon.webp" alt="Bàn tiệc nướng và lẩu trên sàn gỗ, bầu trời hoàng hôn tím hồng trên Đà Lạt" loading="lazy" style="object-position:50% 35%"><figcaption>Trời tím hồng trên Đà Lạt</figcaption></figure>
+      <figure class="h2"><img src="/images/san-co-hoang-hon.webp" alt="Sân cỏ, bàn gỗ và đèn dây của Trạm Nắng lúc hoàng hôn" loading="lazy"><figcaption>Sân cỏ đèn dây</figcaption></figure>
+      <figure class="w2"><img src="/images/san-co-decor-noel.webp" alt="Sân cỏ Trạm Nắng trang trí Giáng sinh với đèn dây và tuyết nhân tạo" loading="lazy"><figcaption>Trang trí mùa Giáng sinh</figcaption></figure>
+      <figure><img src="/images/ga-kampot-view-pho.webp" alt="Gà Kampot và bàn tiệc bên bảng hiệu Trạm Nắng, nhìn xuống phố" loading="lazy" style="object-position:35% 50%"><figcaption>Gà Kampot bên view phố</figcaption></figure>
+    </div>
+    {amenities && <Amenities />}
+  </div>
+</section>

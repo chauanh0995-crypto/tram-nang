@@ -1,0 +1,14 @@
+{
+  "name": "tram-nang-bbq",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 5520",
+    "build": "astro build",
+    "preview": "astro preview --port 5520"
+  },
+  "dependencies": {
+    "astro": "5.18.2",
+    "@astrojs/sitemap": "3.7.3"
+  }
+}

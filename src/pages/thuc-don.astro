@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import { menu, vnd } from '../data/menu';
+import { site } from '../data/site';
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'Menu',
+  name: 'Thực đơn Trạm Nắng BBQ & More',
+  url: `${site.url}/thuc-don/`,
+  inLanguage: 'vi',
+  hasMenuSection: menu.map((g) => ({
+    '@type': 'MenuSection',
+    name: g.title,
+    hasMenuItem: g.items.map((d) => ({
+      '@type': 'MenuItem',
+      name: d.name,
+      description: d.en,
+      offers: { '@type': 'Offer', price: d.price, priceCurrency: 'VND' },
+    })),
+  })),
+}, {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Thực đơn', item: `${site.url}/thuc-don/` },
+  ],
+}];
+---
+<Base
+  title="Thực đơn & bảng giá Trạm Nắng BBQ Đà Lạt"
+  description="Thực đơn Trạm Nắng BBQ & More Đà Lạt: combo nướng 390k cho 2–3 người, gà Kampot, sườn tảng đút lò, lẩu cá tầm, BBQ tại bàn từ 79k, khai vị, cơm mì, đồ uống."
+  current="menu"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/tom-tai-sot-thai-can-canh.webp" alt="" loading="eager" style="object-position:50% 55%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Thực đơn</nav>
+      <span class="script">Menu</span>
+      <h1>Thực đơn &amp; bảng giá</h1>
+      <p>Nướng tại bàn, lẩu, món ăn chơi và đồ uống. Giá tính bằng đồng.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="jump">
+        <div class="tabs">
+          {menu.map((g) => <a class="tab" href={`#${g.id}`}>{g.title}</a>)}
+        </div>
+      </div>
+      {menu.map((g) => (
+        <div class="menu-group">
+          <div class="panel" id={g.id}>
+            <h2 style="font-size:30px">{g.title} <span class="script" style="font-size:22px;margin-left:8px">{g.sub}</span></h2>
+            <ul class="list" style="margin-top:10px">
+              {g.items.map((d) => (
+                <li class:list={{ 'has-img': !!d.img }}>
+                  <div class="row">
+                    {d.img && <img class="thumb" src={`/images/${d.img}.webp`} alt="" loading="lazy">}
+                    <h3 class="n" style="font-family:var(--sans);margin:0">{d.name}{d.best && <span class="badge">Best</span>}</h3>
+                    <span class="dots"></span>
+                    <span class="p">{vnd(d.price)}</span>
+                  </div>
+                  {d.en && <div class="en">{d.en}</div>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+      <div class="menu-foot">
+        <span>Giá có thể thay đổi theo mùa. Muốn đặt trước món cho nhóm đông, nhắn quán để được tư vấn.</span>
+        <a href="#dat-ban" class="btn btn-rust">Đặt bàn <svg><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+</Base>

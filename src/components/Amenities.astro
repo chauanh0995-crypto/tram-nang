@@ -1,0 +1,11 @@
+---
+import { site } from '../data/site';
+interface Props { light?: boolean }
+const { light = false } = Astro.props;
+---
+<div class:list={['feats', 'four', { light }]} id="tien-ich">
+  <div class="feat reveal"><svg><use href="#i-roof"/></svg><h3>Có khu trong nhà</h3><p>Trời mưa hay lạnh vẫn có chỗ ngồi trong nhà, không lo bỏ dở bữa nướng.</p></div>
+  <div class="feat reveal"><svg><use href="#i-pin"/></svg><h3>Gần trung tâm Đà Lạt</h3><p>{site.street}, phường Xuân Hương, đi lại thuận tiện từ khu trung tâm.</p></div>
+  <div class="feat reveal"><svg><use href="#i-car"/></svg><h3>Bãi đậu xe lớn</h3><p>Có bãi đậu xe rộng cho cả xe máy và ô tô.</p></div>
+  <div class="feat reveal"><svg><use href="#i-flame"/></svg><h3>Nướng tại bàn</h3><p>Bếp than đặt ngay trên bàn, hợp đi nhóm và gia đình.</p></div>
+</div>
