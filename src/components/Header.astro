@@ -1,35 +1,55 @@
 ---
-interface Props { solid?: boolean; current?: string; lang?: 'vi' | 'en' }
+type Lang = 'vi' | 'en' | 'zh';
+interface Props { solid?: boolean; current?: string; lang?: Lang }
 const { solid = false, current = '', lang = 'vi' } = Astro.props;
-const en = lang === 'en';
-const links = en
-  ? [
-      { href: '/en/', label: 'Home', key: 'home' },
-      { href: '/en/#menu', label: 'Menu', key: 'menu' },
-      { href: '/en/#space', label: 'The space', key: 'space' },
-      { href: '/en/#events', label: 'Birthdays', key: 'party' },
-      { href: '/en/#faq', label: 'FAQ', key: 'faq' },
-    ]
-  : [
-      { href: '/', label: 'Trang chủ', key: 'home' },
-      { href: '/thuc-don/', label: 'Thực đơn', key: 'menu' },
-      { href: '/khong-gian/', label: 'Không gian', key: 'space' },
-      { href: '/tiec-sinh-nhat/', label: 'Tiệc sinh nhật', key: 'party' },
-      { href: '/blog/', label: 'Blog', key: 'blog' },
-    ];
-const other = en ? { href: '/', label: 'VI', title: 'Tiếng Việt' } : { href: '/en/', label: 'EN', title: 'English' };
-const t = en
-  ? { book: 'Book a table', open: 'Open menu', close: 'Close menu', main: 'Main menu', mobile: 'Mobile menu', home: 'Trạm Nắng BBQ & More – Home' }
-  : { book: 'Đặt bàn', open: 'Mở menu', close: 'Đóng menu', main: 'Menu chính', mobile: 'Menu điện thoại', home: 'Trạm Nắng BBQ & More – Trang chủ' };
+
+const nav: Record<Lang, { href: string; label: string; key: string }[]> = {
+  vi: [
+    { href: '/', label: 'Trang chủ', key: 'home' },
+    { href: '/thuc-don/', label: 'Thực đơn', key: 'menu' },
+    { href: '/khong-gian/', label: 'Không gian', key: 'space' },
+    { href: '/tiec-sinh-nhat/', label: 'Tiệc sinh nhật', key: 'party' },
+    { href: '/blog/', label: 'Blog', key: 'blog' },
+  ],
+  en: [
+    { href: '/en/', label: 'Home', key: 'home' },
+    { href: '/en/#menu', label: 'Menu', key: 'menu' },
+    { href: '/en/#space', label: 'The space', key: 'space' },
+    { href: '/en/#events', label: 'Birthdays', key: 'party' },
+    { href: '/en/#faq', label: 'FAQ', key: 'faq' },
+  ],
+  zh: [
+    { href: '/zh/', label: '首页', key: 'home' },
+    { href: '/zh/#menu', label: '菜单', key: 'menu' },
+    { href: '/zh/#space', label: '环境', key: 'space' },
+    { href: '/zh/#events', label: '生日布置', key: 'party' },
+    { href: '/zh/#faq', label: '常见问题', key: 'faq' },
+  ],
+};
+const langs: Record<Lang, { href: string; label: string; title: string; code: string }> = {
+  vi: { href: '/', label: 'VI', title: 'Tiếng Việt', code: 'vi' },
+  en: { href: '/en/', label: 'EN', title: 'English', code: 'en' },
+  zh: { href: '/zh/', label: '中文', title: '中文', code: 'zh-Hans' },
+};
+const text: Record<Lang, Record<string, string>> = {
+  vi: { book: 'Đặt bàn', open: 'Mở menu', close: 'Đóng menu', main: 'Menu chính', mobile: 'Menu điện thoại', home: 'Trạm Nắng BBQ & More – Trang chủ' },
+  en: { book: 'Book a table', open: 'Open menu', close: 'Close menu', main: 'Main menu', mobile: 'Mobile menu', home: 'Trạm Nắng BBQ & More – Home' },
+  zh: { book: '订位', open: '打开菜单', close: '关闭菜单', main: '主导航', mobile: '手机导航', home: 'Trạm Nắng BBQ & More – 首页' },
+};
+const links = nav[lang];
+const t = text[lang];
+const others = (Object.keys(langs) as Lang[]).filter((l) => l !== lang).map((l) => langs[l]);
 ---
 <header class:list={['top', { always: solid }]} id="top">
   <div class="wrap">
-    <a class="logo" href={en ? '/en/' : '/'} aria-label={t.home}>
+    <a class="logo" href={langs[lang].href} aria-label={t.home}>
       <span><b>TRẠM NẮNG</b><small>BBQ &amp; MORE</small></span>
     </a>
     <nav class="nav" aria-label={t.main}>
       {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>)}
-      <a href={other.href} class="lang" hreflang={en ? 'vi' : 'en'} title={other.title}>{other.label}</a>
+      <span class="langs">
+        {others.map((o) => <a href={o.href} class="lang" hreflang={o.code} lang={o.code} title={o.title}>{o.label}</a>)}
+      </span>
       <a href="#dat-ban" class="btn btn-rust">{t.book}</a>
       <button class="menu-btn" type="button" aria-label={t.open} aria-expanded="false" aria-controls="m-menu" data-open={t.open} data-close={t.close}>
         <span></span><span></span><span></span>
@@ -38,7 +58,7 @@ const t = en
   </div>
   <nav class="m-menu" id="m-menu" aria-label={t.mobile} hidden>
     {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}<svg><use href="#i-arrow"/></svg></a>)}
-    <a href={other.href} hreflang={en ? 'vi' : 'en'}>{other.title}<svg><use href="#i-arrow"/></svg></a>
+    {others.map((o) => <a href={o.href} hreflang={o.code} lang={o.code}>{o.title}<svg><use href="#i-arrow"/></svg></a>)}
   </nav>
 </header>
 

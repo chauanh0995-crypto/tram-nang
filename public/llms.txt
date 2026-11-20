@@ -46,6 +46,7 @@
 - [Liên hệ](https://tramnang.vn/lien-he/): địa chỉ, giờ mở cửa, đặt bàn
 - [Blog](https://tramnang.vn/blog/): kinh nghiệm ăn uống, hoàng hôn, sự kiện
 - [English](https://tramnang.vn/en/): English summary with menu and FAQ
+- [中文](https://tramnang.vn/zh/): 简体中文介绍，含菜单与常见问题
 
 ## Bài viết (Articles)
 

@@ -16,8 +16,8 @@ interface Props {
   current?: string;
   schema?: Record<string, unknown>[];
   preload?: string;
-  lang?: 'vi' | 'en';
-  alt?: { vi: string; en: string };
+  lang?: 'vi' | 'en' | 'zh';
+  alt?: { vi: string; en: string; zh?: string };
   noBook?: boolean;
 }
 const { title, description, image = site.ogImage, type = 'website', solidHeader = false, current, schema = [], preload, lang = 'vi', alt, noBook = false } = Astro.props;
@@ -49,7 +49,7 @@ const restaurant: Record<string, unknown> = {
 const jsonLd = [restaurant, ...schema];
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={lang === 'zh' ? 'zh-Hans' : lang}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,9 +63,10 @@ const jsonLd = [restaurant, ...schema];
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
 <meta property="og:image" content={ogImage}>
-<meta property="og:locale" content={lang === 'en' ? 'en_US' : 'vi_VN'}>
+<meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : lang === 'en' ? 'en_US' : 'vi_VN'}>
 {alt && <link rel="alternate" hreflang="vi" href={new URL(alt.vi, site.url).href}>}
 {alt && <link rel="alternate" hreflang="en" href={new URL(alt.en, site.url).href}>}
+{alt?.zh && <link rel="alternate" hreflang="zh-Hans" href={new URL(alt.zh, site.url).href}>}
 {alt && <link rel="alternate" hreflang="x-default" href={new URL(alt.vi, site.url).href}>}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">

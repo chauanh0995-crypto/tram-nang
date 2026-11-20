@@ -1,0 +1,223 @@
+---
+import Base from '../../layouts/Base.astro';
+import { menu, vnd } from '../../data/menu';
+import { site } from '../../data/site';
+
+// 菜单分组的中文标题
+const groupZh: Record<string, string> = {
+  'signature': '招牌主菜', 'bbq': '桌边炭烤', 'khai-vi': '开胃菜',
+  'an-choi': '小食', 'com-mi': '饭面', 'do-uong': '饮品',
+};
+
+// 菜品中文名（越南语菜名保留，方便点餐时对照）
+const dishZh: Record<string, string> = {
+  'Gà Kampot': '贡布风味整鸡（陶锅上桌）',
+  'Sườn tảng đút lò': '慢烤整扇猪肋排',
+  'Combo nướng': '烧烤拼盘（2–3人份）',
+  'Lẩu cá tầm': '鲟鱼火锅',
+  'Lẩu gà lá é': '柠檬罗勒鸡火锅',
+  'Bò tảng sốt trứng muối': '厚切牛排配咸蛋黄酱',
+  'Bò nướng hít hà': '芥末酱烤牛肉',
+  'Cá tầm nướng': '烤鲟鱼',
+  'Mực nướng sa tế bùng vị': '沙爹辣烤鱿鱼',
+  'Heo rừng lai nướng mắc mật': '香叶烤野猪肉',
+  'Ba chỉ bò': '烤牛五花',
+  'Tôm nướng muối ớt': '椒盐烤虾',
+  'Nọng má heo nướng': '烤猪颈肉',
+  'Nầm nướng chao': '腐乳烤猪乳肉',
+  'Chẳng dừng heo': '烤猪横膈膜肉',
+  'Ba chỉ heo': '烤猪五花',
+  'Chân gà rút xương': '去骨鸡爪',
+  'Gọi thêm · Kim chi': '加点 · 泡菜',
+  'Salad rong nho sốt mè rang': '海葡萄沙拉配焙煎芝麻酱',
+  'Salad tôm trái cây nhiệt đới': '热带水果鲜虾沙拉',
+  'Salad dầu giấm': '油醋蔬菜沙拉',
+  'Súp gà nấm': '鸡肉蘑菇汤',
+  'Súp Tom Yum hải sản': '冬阴功海鲜汤',
+  'Mực hấp chanh': '柠檬蒸鱿鱼（辣）',
+  'Tôm tái sốt Thái': '泰式酱生虾',
+  'Gỏi bò ngũ sắc': '五彩辣拌牛肉',
+  'Sứa sốt Namjim': '泰式酸辣海蜇',
+  'Đậu hũ tắm sốt cay': '香辣酱豆腐',
+  'Chân gà sốt Thái': '泰式酱鸡爪',
+  'Khoai tây + gà vòng lắc phô mai': '芝士粉薯条配鸡块',
+  'Khoai tây chiên giòn rụm': '香脆炸薯条',
+  'Khoai lang phô mai trứng muối': '芝士咸蛋黄烤红薯',
+  'Đậu bắp luộc chấm chao': '白灼秋葵蘸腐乳',
+  'Rau củ kho quẹt': '水煮时蔬蘸越式焦糖鱼露酱',
+  'Khô heo gác bếp Tây Bắc': '西北风味烟熏猪肉干',
+  'Tré trộn bắt mồi': '越式酸肉拌菜',
+  'Cơm chiên tỏi trứng': '蒜香蛋炒饭',
+  'Cơm chiên cá mặn': '咸鱼炒饭',
+  'Cơm chiên tôm ớt xanh': '青椒虾仁炒饭',
+  'Mì xào bò': '牛肉炒面',
+  'Soda các vị': '风味苏打（柠檬 · 蓝莓）',
+  'Trà mát': '冰茶（蜜桃茶）',
+  'Trà nóng': '热茶（香橙肉桂 · 生姜红枣）',
+  'Nước ngọt': '汽水（可乐 · 雪碧 · Sting）',
+  'Nước suối': '矿泉水',
+  'Bia Tiger Bạc (chai nhí)': '虎牌水晶啤酒（小瓶）',
+  'Bia Ken Bạc': '喜力银啤',
+  'Rượu nếp mới': '越南糯米酒',
+  'Vodka': '伏特加',
+  'Soju': '烧酒',
+};
+
+const food = menu.filter((g) => g.id !== 'do-uong');
+const foodCount = food.reduce((n, g) => n + g.items.filter((d) => !d.name.startsWith('Gọi thêm')).length, 0);
+const price = (n: number) => vnd(n).replace(/\./g, ',');
+
+const faq = [
+  { q: 'Trạm Nắng BBQ 在哪里？', a: '地址：越南林同省大叻市春香坊 Đống Đa 街18号（18 Đống Đa, Phường Xuân Hương, Đà Lạt）。靠近市中心，设有宽敞的停车场。' },
+  { q: '营业时间是几点？', a: '每天 15:00 至 22:00 营业，全年无休。最后点餐时间为 21:30。' },
+  { q: '人均消费大概多少？', a: '桌边炭烤单品 79,000 越南盾起，小食 50,000 越南盾起，火锅 250,000 越南盾起。2–3人份烧烤拼盘 390,000 越南盾。' },
+  { q: '需要提前订位吗？', a: `建议提前预订，尤其是周末晚上，或想坐靠栏杆的景观座位时。可致电或通过 Zalo ${site.phoneDisplay} 联系，也可用 Facebook Messenger。` },
+  { q: '下雨天有座位吗？', a: '有。除了户外木平台和草坪区，餐厅还设有室内区域。' },
+  { q: '可以接待团队吗？', a: `可以。餐厅可容纳约 ${site.capacity} 位客人，人数较多请提前联系。` },
+  { q: '生日布置收费吗？', a: '不收费。生日和纪念日的餐桌布置免费，按餐厅自有风格布置，并可协助代订蛋糕和鲜花。' },
+  { q: '有现场音乐吗？', a: '不插电（acoustic）演出通常在每周六晚上举行，具体安排每月不同，建议出发前先确认。' },
+  { q: '支持哪些付款方式？', a: '接受现金和银行转账。' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'zh-Hans',
+  mainEntity: faq.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+}];
+---
+<Base
+  title="Trạm Nắng BBQ & More – 越南大叻日落景观烧烤餐厅"
+  description={`大叻户外炭火烧烤与火锅餐厅，可眺望市区与 Vinaphone 电视塔。${foodCount} 道菜品，生日布置免费，设有室内区。每日 15:00–22:00 营业。订位电话 ${site.phoneDisplay}。`}
+  lang="zh"
+  current="home"
+  alt={{ vi: '/', en: '/en/', zh: '/zh/' }}
+  schema={schema}
+  preload="/images/hero-hoang-hon-lon.webp"
+>
+  <section class="hero" aria-label="简介">
+    <picture>
+      <source media="(max-width: 820px)" srcset="/images/hero-hoang-hon-nho.webp">
+      <img src="/images/hero-hoang-hon-lon.webp" alt="日落时分 Trạm Nắng 木平台上的烧烤与火锅餐桌，远处是大叻市区和 Vinaphone 电视塔" width="1920" height="1439" fetchpriority="high">
+    </picture>
+    <div class="wrap">
+      <span class="eyebrow">BBQ &amp; More · 大叻</span>
+      <h1>在大叻<em>看着日落</em>吃烧烤</h1>
+      <p>桌边炭火烧烤、热腾腾的火锅，木平台正对市中心与 Vinaphone 电视塔。生日布置免费。</p>
+      <div class="ctas">
+        <a href="#dat-ban" class="btn btn-rust">立即订位 <svg><use href="#i-arrow"/></svg></a>
+        <a href="#menu" class="btn btn-ghost">查看菜单</a>
+        <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-pin"/></svg>地图</a>
+      </div>
+      <div class="hero-info">
+        <span><svg><use href="#i-clock"/></svg>每日 15:00 – 22:00</span>
+        <span><svg><use href="#i-pin"/></svg>18 Đống Đa, Đà Lạt</span>
+        <span><svg><use href="#i-phone"/></svg>{site.phoneDisplay}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="usp-band">
+    <div class="wrap">
+      <div class="usps">
+        <a class="usp" href="#space"><span class="ic"><svg><use href="#i-tower"/></svg></span><span><b>市景与电视塔</b><small>日落和入夜后最美</small></span></a>
+        <a class="usp" href="#menu"><span class="ic"><svg><use href="#i-flame"/></svg></span><span><b>{foodCount} 道菜品</b><small>炭火烧烤，50,000 越南盾起</small></span></a>
+        <a class="usp" href="#events"><span class="ic"><svg><use href="#i-cake"/></svg></span><span><b>免费布置</b><small>生日与纪念日</small></span></a>
+        <a class="usp" href="#space"><span class="ic"><svg><use href="#i-roof"/></svg></span><span><b>设有室内区</b><small>下雨天也能舒适用餐</small></span></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="why" id="space">
+    <div class="wrap">
+      <div class="head center reveal">
+        <span class="eyebrow">用餐环境</span>
+        <h2>山坡上用餐，城市在脚下</h2>
+      </div>
+      <div class="area-grid">
+        <article class="area reveal">
+          <img src="/images/san-go-hoang-hon.webp" alt="日落时的 Trạm Nắng 木平台，背景是 Vinaphone 电视塔" loading="lazy" style="object-position:50% 45%">
+          <div><h3>观景木平台</h3><p>高处的座位正对 Vinaphone 电视塔和大叻市中心的山坡房屋，是看日落、拍照的最佳位置。</p></div>
+        </article>
+        <article class="area reveal">
+          <img src="/images/san-co-hoang-hon.webp" alt="Trạm Nắng 草坪区的木桌和串灯" loading="lazy" style="object-position:50% 60%">
+          <div><h3>串灯草坪区</h3><p>木桌摆在草地上，暖色串灯点亮夜晚。空间宽敞，适合多人聚会和家庭。</p></div>
+        </article>
+        <article class="area reveal">
+          <img src="/images/khu-trong-nha.webp" alt="Trạm Nắng 带顶棚的室内区和木质桌椅" loading="lazy" style="object-position:50% 40%">
+          <div><h3>室内区</h3><p>带顶棚的室内区域，下雨或天冷时照常用餐。餐厅靠近市中心，停车场宽敞。</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">菜单</span><h2 style="margin-top:10px">菜单与价格</h2></div>
+        <p>价格单位为越南盾（VND）。点餐时可直接指越南语菜名。</p>
+      </div>
+      {menu.map((g) => (
+        <div class="menu-group">
+          <div class="panel">
+            <h3 style="font-size:28px">{groupZh[g.id]} <span class="script" style="font-size:20px;margin-left:8px">{g.title}</span></h3>
+            <ul class="list" style="margin-top:10px">
+              {g.items.map((d) => (
+                <li>
+                  <div class="row">
+                    <span class="n" style="text-transform:none">{dishZh[d.name] ?? d.name}{d.best && <span class="badge">人气</span>}</span>
+                    <span class="dots"></span>
+                    <span class="p">{price(d.price)}</span>
+                  </div>
+                  <div class="en" lang="vi">{d.name}{d.en ? ` · ${d.en}` : ''}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="party" id="events">
+    <div class="wrap">
+      <div class="collage reveal">
+        <figure class="tall"><img src="/images/decor-sinh-nhat-ban-tiec.webp" alt="Trạm Nắng 的生日餐桌：鲜花、蜡烛、Happy Birthday 牌和烧烤菜品，远处是日落时的大叻" loading="lazy"><figcaption>生日餐桌</figcaption></figure>
+        <figure><img src="/images/decor-happy-birthday.webp" alt="餐桌上的 Happy Birthday 牌、纱质蝴蝶结和鲜花" loading="lazy" style="object-position:50% 40%"><figcaption>Happy Birthday 布置</figcaption></figure>
+        <figure><img src="/images/decor-sinh-nhat-toi.webp" alt="夜晚点着蜡烛的生日餐桌，远处是亮灯的电视塔" loading="lazy" style="object-position:50% 70%"><figcaption>烛光晚宴</figcaption></figure>
+        <figure class="wide"><img src="/images/decor-tiec-view-thap.webp" alt="摆有蛋糕、鲜花和蜡烛的餐桌，背景是大叻市区和 Vinaphone 电视塔" loading="lazy" style="object-position:50% 45%"><figcaption>看得见电视塔的餐桌</figcaption></figure>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">生日 · 纪念日</span>
+        <h2>庆祝布置<em>免费</em></h2>
+        <p class="lead">我们按餐厅自有风格免费布置餐桌，并可协助代订蛋糕和鲜花。您只需到场享受。</p>
+        <ol class="steps">
+          <li><div><b>联系我们</b><span>告知人数、日期、时间和庆祝的场合。</span></div></li>
+          <li><div><b>确认细节</b><span>我们准备布置，并按人数推荐菜品。</span></div></li>
+          <li><div><b>到店享受</b><span>您到达前，餐桌已布置完毕。</span></div></li>
+        </ol>
+        <div class="ctas">
+          <a class="btn btn-rust" href={site.zalo} target="_blank" rel="noopener">通过 Zalo 联系 <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-line" href={`tel:${site.phone}`}>致电 {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">常见问题</span><h2 style="margin-top:10px">常见问题</h2></div>
+        <p>客人到店前最常问的问题。</p>
+      </div>
+      <div class="faq-list">
+        {faq.map((i, n) => (
+          <details class="reveal" open={n === 0}>
+            <summary><h3>{i.q}</h3><span class="pm" aria-hidden="true"></span></summary>
+            <p>{i.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
