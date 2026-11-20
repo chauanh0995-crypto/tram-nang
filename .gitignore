@@ -3,3 +3,4 @@ dist/
 .astro/
 scripts/dang-bai.log
 scripts/build-last.txt
+scripts/indexnow-last.txt

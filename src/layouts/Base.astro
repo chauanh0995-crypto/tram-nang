@@ -46,7 +46,17 @@ const restaurant: Record<string, unknown> = {
   address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.ward, addressRegion: 'Lâm Đồng', addressCountry: 'VN' },
   sameAs: [site.facebook, site.tiktok],
 };
-const jsonLd = [restaurant, ...schema];
+const website: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.url}/#website`,
+  name: site.name,
+  alternateName: ['Trạm Nắng', 'Trạm Nắng BBQ', 'Trạm Nắng Đà Lạt'],
+  url: `${site.url}/`,
+  inLanguage: ['vi', 'en', 'zh-Hans'],
+  publisher: { '@id': `${site.url}/#restaurant` },
+};
+const jsonLd = [restaurant, website, ...schema];
 ---
 <!doctype html>
 <html lang={lang === 'zh' ? 'zh-Hans' : lang}>

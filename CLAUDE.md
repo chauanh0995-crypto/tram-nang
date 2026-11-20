@@ -118,7 +118,7 @@ Tệp `llms.txt` tự sinh từ `src/pages/llms.txt.ts`, danh sách bài tự c�
 
 ## Không được làm
 
-- Không xóa `public/google67196d843732af74.html` (xác minh Google Search Console) và `public/CNAME`.
+- Không xóa `public/google67196d843732af74.html` (xác minh Google Search Console), `public/CNAME`, và tệp khóa IndexNow `public/<khóa>.txt` (khóa ghi trong `scripts/indexnow-key.txt`).
 - Không tìm "tệp không dùng" bằng cách dò tên tệp: ảnh món được gọi theo tên trong `menu.ts`.
 - Không sửa giá trong `menu.ts` nếu chủ quán không yêu cầu.
 

@@ -36,3 +36,18 @@ git push -q -f https://github.com/chauanh0995-crypto/tram-nang.git gh-pages >> "
 rm -rf .git
 
 log "Xong: da dua len web, $POSTS bai dang hien"
+
+# Báo Bing (IndexNow) danh sách trang, để trang mới được lập chỉ mục nhanh hơn.
+# Chỉ gửi khi số bài thay đổi so với lần trước. Lỗi ở bước này không ảnh hưởng tới web.
+cd "$REPO"
+KEY=$(cat scripts/indexnow-key.txt 2>/dev/null)
+LAST=$(cat scripts/indexnow-last.txt 2>/dev/null)
+if [ -n "$KEY" ] && [ "$POSTS" != "$LAST" ]; then
+  sleep 90
+  URLS=$(grep -o '<loc>[^<]*</loc>' dist/sitemap-0.xml | sed 's/<loc>//; s/<\/loc>//' | sed 's/.*/"&"/' | paste -sd, -)
+  CODE=$(curl -s -o /dev/null -m 30 -w '%{http_code}' -X POST 'https://api.indexnow.org/indexnow' \
+    -H 'Content-Type: application/json; charset=utf-8' \
+    -d "{\"host\":\"tramnang.vn\",\"key\":\"$KEY\",\"keyLocation\":\"https://tramnang.vn/$KEY.txt\",\"urlList\":[$URLS]}")
+  log "IndexNow: ma tra ve $CODE"
+  case "$CODE" in 200|202) echo "$POSTS" > scripts/indexnow-last.txt ;; esac
+fi
