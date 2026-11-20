@@ -1,6 +1,6 @@
 ---
 title: "Ngồi khu nào ở Trạm Nắng? Sàn gỗ ngắm phố, sân cỏ đèn dây hay khu trong nhà"
-seoTitle: "Quán nướng Đà Lạt view đẹp: ngồi khu nào ở Trạm Nắng"
+seoTitle: "Ngồi khu nào ở Trạm Nắng BBQ Đà Lạt: sàn gỗ, sân cỏ, trong nhà"
 description: "Trạm Nắng BBQ Đà Lạt có ba khu: sàn gỗ nhìn ra tháp Vinaphone, sân cỏ giăng đèn dây và khu trong nhà. So sánh từng khu để chọn chỗ hợp với nhóm của bạn."
 date: 2026-11-20
 cover: /images/san-go-ghe-ngam-pho.webp
