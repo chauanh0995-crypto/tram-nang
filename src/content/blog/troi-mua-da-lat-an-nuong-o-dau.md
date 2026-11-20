@@ -21,7 +21,7 @@ draft: false
 
 - **Có khu trong nhà.** Trời mưa hay quá lạnh, bạn vẫn ngồi nướng bình thường, không phải bỏ dở bữa.
 - **Mưa tạnh thì ra ngoài.** Sàn gỗ và sân cỏ đèn dây ngay bên cạnh, tạnh mưa là có thể ra ngắm phố.
-- **Gần trung tâm Đà Lạt**, số 18 Đống Đa, phường Xuân Hương, nên không phải chạy xe xa dưới mưa.
+- **Gần trung tâm Đà Lạt**, số 18 Đống Đa, phường Xuân Hương - Đà Lạt, nên không phải chạy xe xa dưới mưa.
 - **Bãi đậu xe rộng**, tiện cho cả xe máy và ô tô.
 
 ![Khu vực trong nhà của Trạm Nắng với bàn ghế gỗ dưới mái che](/images/khu-trong-nha-ban-go.webp)

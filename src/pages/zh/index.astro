@@ -68,7 +68,7 @@ const foodCount = food.reduce((n, g) => n + g.items.filter((d) => !d.name.starts
 const price = (n: number) => vnd(n).replace(/\./g, ',');
 
 const faq = [
-  { q: 'Trạm Nắng BBQ 在哪里？', a: '地址：越南林同省大叻市春香坊 Đống Đa 街18号（18 Đống Đa, Phường Xuân Hương, Đà Lạt）。靠近市中心，设有宽敞的停车场。' },
+  { q: 'Trạm Nắng BBQ 在哪里？', a: '地址：越南林同省大叻市春香坊 Đống Đa 街18号（18 Đống Đa, phường Xuân Hương - Đà Lạt）。靠近市中心，设有宽敞的停车场。' },
   { q: '营业时间是几点？', a: '每天 15:00 至 22:00 营业，全年无休。最后点餐时间为 21:30。' },
   { q: '人均消费大概多少？', a: '桌边炭烤单品 79,000 越南盾起，小食 50,000 越南盾起，火锅 250,000 越南盾起。2–3人份烧烤拼盘 390,000 越南盾。' },
   { q: '需要提前订位吗？', a: `建议提前预订，尤其是周末晚上，或想坐靠栏杆的景观座位时。可致电或通过 Zalo ${site.phoneDisplay} 联系，也可用 Facebook Messenger。` },
