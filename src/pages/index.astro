@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../data/posts';
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import WeatherMini from '../components/Weather.astro';
@@ -12,9 +12,7 @@ import { menu, picks, findDish, vnd } from '../data/menu';
 import { site } from '../data/site';
 
 const dishes = picks.map(findDish);
-const posts = (await getCollection('blog', (p) => !p.data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const posts = (await getPublishedPosts()).slice(0, 3);
 
 // Không tính món gọi thêm (kim chi) khi đếm món và tìm giá thấp nhất.
 const main = (g: (typeof menu)[number]) => g.items.filter((d) => !d.name.startsWith('Gọi thêm'));

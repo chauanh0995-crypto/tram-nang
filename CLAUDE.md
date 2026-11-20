@@ -114,7 +114,7 @@ Lịch chủ đề 12 tuần nằm trong `LICH-BAI-VIET.md`. Khi chủ quán nó
 - `src/content/blog/`: bài viết.
 - `public/`: ảnh, clip, `llms.txt`, `robots.txt`, `CNAME`.
 
-Khi thêm bài mới, thêm một dòng vào mục "Bài viết" trong `public/llms.txt`.
+Tệp `llms.txt` tự sinh từ `src/pages/llms.txt.ts`, danh sách bài tự cập nhật. Bài có `date` ở tương lai chưa hiện trên web cho tới ngày đó (xem `src/data/posts.ts`).
 
 ## Không được làm
 

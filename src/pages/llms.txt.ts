@@ -1,4 +1,9 @@
-# Trạm Nắng BBQ & More
+import type { APIRoute } from 'astro';
+import { getPublishedPosts } from '../data/posts';
+import { site } from '../data/site';
+
+// Tệp tóm tắt cho trợ lý AI. Danh sách bài viết tự cập nhật theo các bài đã đăng.
+const head = `# Trạm Nắng BBQ & More
 
 > Trạm Nắng BBQ & More là quán nướng và lẩu ngoài trời ở Đà Lạt, Việt Nam, nổi bật với sàn gỗ nhìn ra tháp Vinaphone và trung tâm thành phố lúc hoàng hôn. (Outdoor BBQ and hot pot restaurant in Da Lat, Vietnam, known for its sunset view over the city and the Vinaphone tower.)
 
@@ -47,15 +52,12 @@
 - [Blog](https://tramnang.vn/blog/): kinh nghiệm ăn uống, hoàng hôn, sự kiện
 - [English](https://tramnang.vn/en/): English summary with menu and FAQ
 - [中文](https://tramnang.vn/zh/): 简体中文介绍，含菜单与常见问题
+`;
 
-## Bài viết (Articles)
-
-- [Ăn gì ở Trạm Nắng? 10 món nên gọi lần đầu](https://tramnang.vn/blog/an-gi-o-tram-nang-mon-nen-goi-lan-dau/)
-- [Quán nướng view hoàng hôn Đà Lạt: đi giờ nào đẹp nhất](https://tramnang.vn/blog/quan-nuong-view-hoang-hon-da-lat-di-gio-nao/)
-- [Decor sinh nhật miễn phí ở Đà Lạt](https://tramnang.vn/blog/decor-sinh-nhat-mien-phi-o-da-lat/)
-- [Trạm Nắng trang trí Noel từ tháng 11](https://tramnang.vn/blog/tram-nang-trang-tri-noel-tu-thang-11/)
-- [Đêm acoustic ở Trạm Nắng](https://tramnang.vn/blog/dem-acoustic-o-tram-nang-da-lat/)
-- [Trời mưa Đà Lạt ăn nướng ở đâu](https://tramnang.vn/blog/troi-mua-da-lat-an-nuong-o-dau/)
-- [Gà Kampot ở Trạm Nắng](https://tramnang.vn/blog/ga-kampot-tram-nang-mon-signature/)
-- [Ngồi khu nào ở Trạm Nắng: sàn gỗ, sân cỏ hay khu trong nhà](https://tramnang.vn/blog/ngoi-khu-nao-o-tram-nang-san-go-san-co-trong-nha/)
-- [Quán nướng Đà Lạt có view đẹp: 5 tiêu chí chọn quán](https://tramnang.vn/blog/quan-nuong-da-lat-co-view-dep/)
+export const GET: APIRoute = async () => {
+  const posts = await getPublishedPosts();
+  const list = posts.map((p) => `- [${p.data.title}](${site.url}/blog/${p.id}/)`).join('\n');
+  return new Response(`${head}\n## Bài viết (Articles)\n\n${list}\n`, {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
+};
