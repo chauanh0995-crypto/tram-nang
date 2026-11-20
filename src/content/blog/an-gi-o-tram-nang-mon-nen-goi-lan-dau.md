@@ -11,6 +11,8 @@ draft: false
 
 Thực đơn Trạm Nắng có hơn 50 món, từ nướng tại bàn, lẩu đến món ăn chơi. Lần đầu ghé mà không biết bắt đầu từ đâu thì đây là những món khách gọi nhiều nhất, kèm cách gọi vừa đủ cho từng nhóm.
 
+![Bàn ăn Trạm Nắng nhìn từ trên xuống với khay nướng, bò tảng, tôm và salad](/images/ban-an-tu-tren-cao.webp)
+
 ## 1. Combo nướng – 390.000đ
 
 Món dễ chọn nhất cho nhóm 2–3 người. Một khay gỗ lớn gồm gà, sườn, tôm, đậu bắp, ớt chuông và khoai tây chiên, nướng sẵn mang ra. Gọi món này trước, rồi thêm món nướng tại bàn nếu còn đói.
@@ -27,6 +29,8 @@ Nguyên tảng sườn heo nướng lò chậm, ăn kèm khoai tây chiên và b
 
 Món nướng tại bàn được gọi nhiều nhất. Bò tảng mang ra cùng chén sốt trứng muối, tự nướng trên bếp than ngay tại bàn.
 
+![Bò tảng trên thớt gỗ kèm sốt trứng muối](/images/bo-tang-can-canh.webp)
+
 ## 5. Lẩu cá tầm – 360.000đ hoặc lẩu gà lá é – 250.000đ
 
 Trời Đà Lạt về đêm lạnh, nồi lẩu nóng gần như bàn nào cũng gọi. **Cá tầm** là đặc sản vùng cao, còn **gà lá é** thơm mùi lá é, dễ ăn với mọi người.
@@ -38,6 +42,8 @@ Trời Đà Lạt về đêm lạnh, nồi lẩu nóng gần như bàn nào cũn
 - **Khoai lang phô mai trứng muối** – 59.000đ (best seller)
 - **Tôm tái sốt Thái** – 169.000đ
 - **Chẳng dừng heo nướng** – 89.000đ (best seller)
+
+![Nướng thịt và rau củ trên bếp than tại bàn](/images/nuong-tai-ban.webp)
 
 ## Gợi ý gọi món theo số người
 

@@ -3,8 +3,8 @@ title: "Tổ chức sinh nhật ở Đà Lạt: quán nướng decor miễn phí
 seoTitle: "Decor sinh nhật miễn phí ở Đà Lạt – Trạm Nắng BBQ"
 description: "Kinh nghiệm tổ chức sinh nhật, kỷ niệm ở Đà Lạt tại Trạm Nắng BBQ: quán trang trí bàn tiệc miễn phí, cách đặt, giờ đẹp và gợi ý thực đơn cho 4 và 6 người."
 date: 2026-11-16
-cover: /images/decor-tiec-view-thap.webp
-coverAlt: "Bàn tiệc sinh nhật có bánh, hoa và nến ở Trạm Nắng, phía sau là thành phố Đà Lạt và tháp Vinaphone"
+cover: /images/decor-sinh-nhat-view-thap.webp
+coverAlt: "Bàn trang trí sinh nhật với hoa, nến và bảng Happy Birthday, nhìn ra tháp Vinaphone"
 category: "Tiệc & Decor"
 draft: false
 ---
@@ -15,7 +15,7 @@ Sinh nhật ở Đà Lạt không nhất thiết phải thuê phòng riêng hay 
 
 Bàn được dựng trên sàn gỗ ngoài trời, nhìn thẳng ra thành phố và tháp Vinaphone. Trên bàn có hoa, nến và đèn, phối theo dịp của bạn. Buổi chiều có nền trời hoàng hôn, buổi tối có đèn phố phía sau.
 
-![Bàn tiệc trang trí hoa và nến ở Trạm Nắng lúc chập tối](/images/decor-ban-tiec-hoa-nen.webp)
+![Bàn tiệc sinh nhật ở Trạm Nắng với hoa, nến, bảng Happy Birthday và các món nướng](/images/decor-sinh-nhat-ban-tiec.webp)
 
 ## Đặt tiệc trong 3 bước
 
@@ -25,12 +25,16 @@ Bàn được dựng trên sàn gỗ ngoài trời, nhìn thẳng ra thành ph�
 
 Quán trang trí theo concept của quán và có hỗ trợ đặt bánh, hoa, nên bạn chỉ cần đến trải nghiệm. Nếu muốn tự mang bánh sinh nhật, quán không tính phí và hỗ trợ dao, dĩa, ly.
 
+![Bảng Happy Birthday, nơ voan và hoa trên bàn tiệc](/images/decor-happy-birthday.webp)
+
 ## Nên chọn giờ nào?
 
 - **Muốn ảnh đẹp nhất:** đến trước hoàng hôn khoảng 45 phút. Xem cách tính ở bài [đi giờ nào để kịp trời tím hồng](/blog/quan-nuong-view-hoang-hon-da-lat-di-gio-nao/).
 - **Muốn không khí ấm cúng:** đặt sau 18h30, khi đèn dây trên sân cỏ đã sáng.
 
 Quán mở cửa 15h – 22h, order cuối 21h30.
+
+![Bàn tiệc sinh nhật thắp nến về đêm, phía xa là tháp Vinaphone sáng đèn](/images/decor-sinh-nhat-toi.webp)
 
 ## Gợi ý thực đơn cho bàn tiệc
 

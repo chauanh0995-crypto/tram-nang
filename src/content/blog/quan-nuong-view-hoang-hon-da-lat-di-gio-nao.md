@@ -26,6 +26,8 @@ Giờ lặn thay đổi theo mùa, nhưng không chênh nhiều:
 
 Trời đẹp nhất thường là **15–20 phút sau khi mặt trời lặn**, khi mây bắt màu hồng tím và đèn trong phố bắt đầu sáng.
 
+![Bảng hiệu Trạm Nắng sáng đèn lúc hoàng hôn, phía sau là thành phố Đà Lạt](/images/bang-hieu-hoang-hon.webp)
+
 ## Nên đến lúc mấy giờ?
 
 **Đến trước giờ mặt trời lặn khoảng 45 phút.** Đủ thời gian chọn chỗ, gọi món và nhóm bếp than, để lúc trời đổi màu bạn đã ngồi yên với miếng nướng đầu tiên.

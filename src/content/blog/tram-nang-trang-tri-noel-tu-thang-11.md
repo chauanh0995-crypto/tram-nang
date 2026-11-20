@@ -3,8 +3,8 @@ title: "Tháng 11 lên đồ Noel: Trạm Nắng đã trang trí Giáng sinh"
 seoTitle: "Quán nướng decor Noel ở Đà Lạt – Trạm Nắng từ tháng 11"
 description: "Từ tháng 11, Trạm Nắng BBQ Đà Lạt trang trí Giáng sinh: sân cỏ đèn dây, cây thông, tuyết nhân tạo và bàn tiệc Noel nhìn ra thành phố. Gợi ý giờ đẹp và cách đặt bàn."
 date: 2026-11-19
-cover: /images/san-co-decor-noel.webp
-coverAlt: "Sân cỏ Trạm Nắng trang trí Giáng sinh với đèn dây và tuyết nhân tạo lúc chập tối"
+cover: /images/noel-san-co.webp
+coverAlt: "Sân cỏ Trạm Nắng trang trí Giáng sinh với đèn dây, nón ông già Noel và tuyết nhân tạo"
 category: "Sự kiện"
 draft: false
 ---
@@ -19,6 +19,10 @@ draft: false
 - **Bàn tiệc trang trí Noel** với cành thông, quả châu và bảng Merry Christmas, phía sau là thành phố lên đèn.
 
 ![Bàn tiệc trang trí Giáng sinh ở Trạm Nắng, nhìn ra thành phố Đà Lạt về đêm](/images/ban-tiec-decor-noel.webp)
+
+![Cây thông Noel và gấu bông trên sân cỏ Trạm Nắng](/images/noel-cay-thong.webp)
+
+![Cổng đèn và cây thông trang trí Giáng sinh lúc chập tối](/images/noel-cong-den.webp)
 
 ## Đi giờ nào đẹp?
 

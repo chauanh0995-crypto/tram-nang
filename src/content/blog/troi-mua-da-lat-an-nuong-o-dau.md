@@ -3,8 +3,8 @@ title: "Trời mưa Đà Lạt ăn nướng ở đâu? Quán có khu trong nhà,
 seoTitle: "Trời mưa Đà Lạt ăn gì? Quán nướng có khu trong nhà"
 description: "Đà Lạt hay mưa chiều tối. Gợi ý ăn nướng, lẩu ngày mưa ở Trạm Nắng BBQ: có khu trong nhà, gần trung tâm, bãi đậu xe rộng, kèm món nên gọi khi trời lạnh."
 date: 2026-11-14
-cover: /images/flycam-dem-san-co.webp
-coverAlt: "Trạm Nắng về đêm nhìn từ trên cao, khu nhà có mái bên cạnh sân cỏ giăng đèn"
+cover: /images/khu-trong-nha.webp
+coverAlt: "Khu vực trong nhà của Trạm Nắng với bàn ghế gỗ dưới mái che"
 category: "Kinh nghiệm"
 draft: false
 ---
@@ -23,6 +23,10 @@ draft: false
 - **Mưa tạnh thì ra ngoài.** Sàn gỗ và sân cỏ đèn dây ngay bên cạnh, tạnh mưa là có thể ra ngắm phố.
 - **Gần trung tâm Đà Lạt**, số 18 Đống Đa, phường Xuân Hương, nên không phải chạy xe xa dưới mưa.
 - **Bãi đậu xe rộng**, tiện cho cả xe máy và ô tô.
+
+![Khu vực trong nhà của Trạm Nắng với bàn ghế gỗ dưới mái che](/images/khu-trong-nha-ban-go.webp)
+
+![Bãi đậu xe của Trạm Nắng ngay lối vào quán](/images/bai-dau-xe.webp)
 
 ## Trời lạnh nên gọi gì?
 

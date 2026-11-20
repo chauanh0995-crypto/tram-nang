@@ -24,6 +24,8 @@ Nếu chỉ được gọi một món chính ở Trạm Nắng, nhiều bàn s�
 
 Một con hợp với **3–4 người** khi gọi kèm món khác. Nhóm 2 người nếu gọi gà thì chỉ cần thêm một món rau hoặc cơm là đủ.
 
+![Gà Kampot trong niêu đất giữa bàn tiệc về đêm ở Trạm Nắng](/images/ga-kampot-dem.webp)
+
 ## Gọi kèm gì cho tròn bữa?
 
 - **Thêm vị tươi:** salad tôm trái cây nhiệt đới (155.000đ) hoặc salad dầu giấm (79.000đ).

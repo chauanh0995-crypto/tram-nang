@@ -3,8 +3,8 @@ title: "Đêm acoustic ở Trạm Nắng: nghe nhạc mộc, ăn nướng, ngắ
 seoTitle: "Quán nướng có nhạc acoustic ở Đà Lạt – Trạm Nắng BBQ"
 description: "Trạm Nắng BBQ Đà Lạt có đêm nhạc acoustic: nghe nhạc mộc giữa sân cỏ đèn dây, ăn nướng và ngắm thành phố lên đèn. Thường diễn tối thứ Bảy hằng tuần."
 date: 2026-11-15
-cover: /images/flycam-dem-toan-canh.webp
-coverAlt: "Toàn cảnh Trạm Nắng về đêm, sân cỏ giăng đèn giữa thành phố Đà Lạt"
+cover: /images/ban-tiec-dem-bang-hieu.webp
+coverAlt: "Bàn tiệc về đêm ở Trạm Nắng, phía sau là bảng hiệu và sân cỏ giăng đèn"
 category: "Sự kiện"
 draft: false
 ---

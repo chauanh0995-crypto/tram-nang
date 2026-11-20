@@ -22,9 +22,9 @@ const sets = [
 ].map((s) => ({ ...s, total: s.items.reduce((n, name) => n + findDish(name).price, 0) }));
 
 const photos = [
-  { img: 'decor-tiec-view-thap', alt: 'Bàn tiệc sinh nhật có bánh, hoa và nến ở Trạm Nắng, phía sau là thành phố Đà Lạt và tháp Vinaphone', cap: 'Bàn tiệc nhìn ra tháp Vinaphone' },
-  { img: 'ban-tiec-decor-noel', alt: 'Bàn tiệc trang trí dịp Giáng sinh ở Trạm Nắng về đêm', cap: 'Trang trí dịp Giáng sinh' },
-  { img: 'san-co-decor-noel', alt: 'Sân cỏ Trạm Nắng trang trí Giáng sinh với đèn dây', cap: 'Sân cỏ mùa lễ hội' },
+  { img: 'decor-sinh-nhat-view-thap', alt: 'Bàn trang trí sinh nhật với hoa, nến và bảng Happy Birthday, nhìn ra tháp Vinaphone lúc chiều', cap: 'Decor sinh nhật view tháp' },
+  { img: 'decor-sinh-nhat-mon-an', alt: 'Bàn tiệc sinh nhật đã dọn món ở Trạm Nắng, có hoa và bảng Happy Birthday', cap: 'Bàn tiệc đã dọn món' },
+  { img: 'decor-hoa-nen', alt: 'Hoa, nến và nơ voan trang trí trên bàn gỗ ở Trạm Nắng', cap: 'Hoa và nến' },
 ];
 ---
 <Base
