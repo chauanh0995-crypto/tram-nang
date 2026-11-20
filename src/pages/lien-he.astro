@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import { faqGeneral } from '../data/faq';
+import { site } from '../data/site';
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Liên hệ', item: `${site.url}/lien-he/` },
+  ],
+}];
+---
+<Base
+  title="Liên hệ & đặt bàn Trạm Nắng BBQ Đà Lạt – 18 Đống Đa"
+  description={`Trạm Nắng BBQ & More: ${site.address}. Mở cửa 15h–22h tất cả các ngày. Đặt bàn qua điện thoại, Zalo ${site.phoneDisplay} hoặc Messenger. Nhận đoàn đông, có bãi đậu xe rộng.`}
+  current="contact"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/flycam-dem-san-co.webp" alt="" loading="eager" style="object-position:50% 55%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Liên hệ</nav>
+      <span class="script">Liên hệ</span>
+      <h1>Liên hệ &amp; đặt bàn</h1>
+      <p>Gọi, nhắn Zalo hoặc Messenger. Quán trả lời trong giờ mở cửa.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="wrap">
+      <div class="info-grid">
+        <article class="info reveal">
+          <svg><use href="#i-pin"/></svg>
+          <h2>Địa chỉ</h2>
+          <p>{site.address}</p>
+          <a href={site.mapsUrl} target="_blank" rel="noopener">Chỉ đường trên Google Maps →</a>
+        </article>
+        <article class="info reveal">
+          <svg><use href="#i-clock"/></svg>
+          <h2>Giờ mở cửa</h2>
+          <p>15h – 22h, tất cả các ngày trong tuần.<br>Nhận order cuối lúc 21h30.</p>
+        </article>
+        <article class="info reveal">
+          <svg><use href="#i-phone"/></svg>
+          <h2>Đặt bàn</h2>
+          <p>Điện thoại và Zalo: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></p>
+          <a href={site.messenger} target="_blank" rel="noopener">Nhắn Messenger →</a>
+        </article>
+        <article class="info reveal">
+          <svg><use href="#i-cake"/></svg>
+          <h2>Đoàn đông &amp; tiệc</h2>
+          <p>Nhận đoàn đông, sức chứa khoảng {site.capacity} khách. Decor sinh nhật, kỷ niệm miễn phí.</p>
+          <a href="/tiec-sinh-nhat/">Xem trang Tiệc sinh nhật →</a>
+        </article>
+        <article class="info reveal">
+          <svg><use href="#i-car"/></svg>
+          <h2>Tiện ích</h2>
+          <p>Gần trung tâm Đà Lạt, bãi đậu xe rộng, có khu trong nhà cho ngày mưa.</p>
+        </article>
+        <article class="info reveal">
+          <svg><use href="#i-flame"/></svg>
+          <h2>Thanh toán</h2>
+          <p>Tiền mặt và chuyển khoản.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Faq items={faqGeneral} />
+</Base>

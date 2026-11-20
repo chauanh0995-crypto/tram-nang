@@ -1,0 +1,167 @@
+---
+import Base from '../../layouts/Base.astro';
+import { menu, vnd } from '../../data/menu';
+import { site } from '../../data/site';
+
+// English titles for the menu groups. Dish names stay Vietnamese with the English line from the menu.
+const groupEn: Record<string, string> = {
+  'signature': 'Signature mains', 'bbq': 'Table grill', 'khai-vi': 'Appetizers',
+  'an-choi': 'Small bites', 'com-mi': 'Rice & noodles', 'do-uong': 'Drinks',
+};
+const food = menu.filter((g) => g.id !== 'do-uong');
+const foodCount = food.reduce((n, g) => n + g.items.filter((d) => !d.name.startsWith('Gọi thêm')).length, 0);
+
+const faq = [
+  { q: 'Where is Trạm Nắng BBQ?', a: `At 18 Đống Đa Street, Xuân Hương Ward, Đà Lạt, Vietnam. It is close to the city centre and has a large parking area.` },
+  { q: 'What are the opening hours?', a: 'Open every day from 15:00 to 22:00, with no closing day. Last order is at 21:30.' },
+  { q: 'How much does a meal cost?', a: 'Table-grill dishes start at 79,000 VND, small bites at 50,000 VND and hot pots at 250,000 VND. The BBQ combo for 2–3 people is 390,000 VND.' },
+  { q: 'Do I need a reservation?', a: `Booking ahead is recommended, especially on weekend evenings or for a railing table with the city view. Call or message Zalo ${site.phoneDisplay}, or use Facebook Messenger.` },
+  { q: 'Is there seating if it rains?', a: 'Yes. Besides the outdoor deck and lawn, there is an indoor area.' },
+  { q: 'Can you host large groups?', a: `Yes. The venue holds about ${site.capacity} guests. Please message ahead for large groups.` },
+  { q: 'Is birthday decoration free?', a: 'Yes. Table decoration for birthdays and anniversaries is free, in the restaurant\'s own style. The team can also help order a cake and flowers.' },
+  { q: 'Is there live music?', a: 'Acoustic sets usually take place on Saturday evenings. The schedule changes by month, so message ahead to confirm.' },
+  { q: 'How can I pay?', a: 'Cash or bank transfer.' },
+];
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'en',
+  mainEntity: faq.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+}];
+---
+<Base
+  title="Trạm Nắng BBQ & More – Sunset-view BBQ restaurant in Da Lat, Vietnam"
+  description={`Outdoor BBQ and hot pot restaurant in Da Lat with a city and Vinaphone tower view. ${foodCount} dishes, free birthday decoration, indoor area. Open daily 15:00–22:00. Book: ${site.phoneDisplay}.`}
+  lang="en"
+  current="home"
+  alt={{ vi: '/', en: '/en/' }}
+  schema={schema}
+  preload="/images/hero-hoang-hon-lon.webp"
+>
+  <section class="hero" aria-label="Introduction">
+    <picture>
+      <source media="(max-width: 820px)" srcset="/images/hero-hoang-hon-nho.webp">
+      <img src="/images/hero-hoang-hon-lon.webp" alt="A BBQ and hot pot table on the wooden deck at Trạm Nắng at sunset, overlooking Da Lat and the Vinaphone tower" width="1920" height="1439" fetchpriority="high">
+    </picture>
+    <div class="wrap">
+      <span class="eyebrow">BBQ &amp; More · Da Lat</span>
+      <h1>BBQ with a <em>sunset view</em> over Da Lat</h1>
+      <p>Charcoal grill at your table, hot pots and a wooden deck facing the city centre and the Vinaphone tower. Free birthday decoration.</p>
+      <div class="ctas">
+        <a href="#dat-ban" class="btn btn-rust">Book a table <svg><use href="#i-arrow"/></svg></a>
+        <a href="#menu" class="btn btn-ghost">See the menu</a>
+        <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-pin"/></svg>Map</a>
+      </div>
+      <div class="hero-info">
+        <span><svg><use href="#i-clock"/></svg>Daily 15:00 – 22:00</span>
+        <span><svg><use href="#i-pin"/></svg>18 Đống Đa, Đà Lạt</span>
+        <span><svg><use href="#i-phone"/></svg>{site.phoneDisplay}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="usp-band">
+    <div class="wrap">
+      <div class="usps">
+        <a class="usp" href="#space"><span class="ic"><svg><use href="#i-tower"/></svg></span><span><b>City &amp; tower view</b><small>Best at sunset and after dark</small></span></a>
+        <a class="usp" href="#menu"><span class="ic"><svg><use href="#i-flame"/></svg></span><span><b>{foodCount} dishes</b><small>Charcoal grill, from 50,000 VND</small></span></a>
+        <a class="usp" href="#events"><span class="ic"><svg><use href="#i-cake"/></svg></span><span><b>Free decoration</b><small>Birthdays &amp; anniversaries</small></span></a>
+        <a class="usp" href="#space"><span class="ic"><svg><use href="#i-roof"/></svg></span><span><b>Indoor area</b><small>Comfortable on rainy days</small></span></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="why" id="space">
+    <div class="wrap">
+      <div class="head center reveal">
+        <span class="eyebrow">The space</span>
+        <h2>Dinner on the hill, the city below</h2>
+      </div>
+      <div class="area-grid">
+        <article class="area reveal">
+          <img src="/images/san-go-hoang-hon.webp" alt="The wooden deck at Trạm Nắng at sunset with the Vinaphone tower behind" loading="lazy" style="object-position:50% 45%">
+          <div><h3>Wooden deck</h3><p>Raised tables facing the Vinaphone tower and the hills of central Da Lat. The best spot for sunset photos.</p></div>
+        </article>
+        <article class="area reveal">
+          <img src="/images/san-co-hoang-hon.webp" alt="The lawn at Trạm Nắng with wooden tables and string lights" loading="lazy" style="object-position:50% 60%">
+          <div><h3>Lawn with string lights</h3><p>Wooden tables on the grass under warm lights. Roomy, good for groups and families.</p></div>
+        </article>
+        <article class="area reveal">
+          <img src="/images/flycam-dem-san-co.webp" alt="Trạm Nắng at night from above" loading="lazy">
+          <div><h3>Indoor area</h3><p>A covered area for rainy or cold evenings, close to the centre, with a large parking area.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">Menu</span><h2 style="margin-top:10px">Menu &amp; prices</h2></div>
+        <p>Prices are in Vietnamese đồng (VND).</p>
+      </div>
+      {menu.map((g) => (
+        <div class="menu-group">
+          <div class="panel">
+            <h3 style="font-size:28px">{groupEn[g.id]} <span class="script" style="font-size:20px;margin-left:8px">{g.title}</span></h3>
+            <ul class="list" style="margin-top:10px">
+              {g.items.map((d) => (
+                <li>
+                  <div class="row">
+                    <span class="n">{d.name}{d.best && <span class="badge">Best</span>}</span>
+                    <span class="dots"></span>
+                    <span class="p">{vnd(d.price)}</span>
+                  </div>
+                  {d.en && <div class="en">{d.en}</div>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="party" id="events">
+    <div class="wrap">
+      <div class="collage reveal">
+        <figure class="tall"><img src="/images/decor-ban-tiec-hoa-nen.webp" alt="A table decorated with flowers and candles at Trạm Nắng at dusk" loading="lazy"><figcaption>Flowers &amp; candles</figcaption></figure>
+        <figure><img src="/images/decor-banh-sinh-nhat.webp" alt="A birthday cake among flowers on a party table" loading="lazy"><figcaption>Birthday cake</figcaption></figure>
+        <figure><img src="/images/decor-sinh-nhat-dem.webp" alt="A Happy Birthday corner with lanterns and flowers at night" loading="lazy" style="object-position:50% 85%"><figcaption>Happy Birthday corner</figcaption></figure>
+        <figure class="wide"><img src="/images/decor-tiec-view-thap.webp" alt="A decorated party table with the city of Da Lat and the Vinaphone tower behind" loading="lazy"><figcaption>Party table with a view</figcaption></figure>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Birthdays · Anniversaries</span>
+        <h2>Free decoration for your <em>celebration</em></h2>
+        <p class="lead">We decorate your table for free in the restaurant's own style, and can help order a cake and flowers. You only need to show up.</p>
+        <ol class="steps">
+          <li><div><b>Message us</b><span>Tell us your party size, date, time and occasion.</span></div></li>
+          <li><div><b>Confirm the details</b><span>We prepare the decoration and suggest dishes for your group.</span></div></li>
+          <li><div><b>Arrive and enjoy</b><span>Your table is ready before you arrive.</span></div></li>
+        </ol>
+        <div class="ctas">
+          <a class="btn btn-rust" href={site.zalo} target="_blank" rel="noopener">Message on Zalo <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-line" href={`tel:${site.phone}`}>Call {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><span class="eyebrow">FAQ</span><h2 style="margin-top:10px">Frequently asked questions</h2></div>
+        <p>What guests usually ask before visiting.</p>
+      </div>
+      <div class="faq-list">
+        {faq.map((i, n) => (
+          <details class="reveal" open={n === 0}>
+            <summary><h3>{i.q}</h3><span class="pm" aria-hidden="true"></span></summary>
+            <p>{i.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

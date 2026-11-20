@@ -1,29 +1,44 @@
 ---
-interface Props { solid?: boolean; current?: string }
-const { solid = false, current = '' } = Astro.props;
-const links = [
-  { href: '/', label: 'Trang chủ', key: 'home' },
-  { href: '/thuc-don/', label: 'Thực đơn', key: 'menu' },
-  { href: '/khong-gian/', label: 'Không gian', key: 'space' },
-  { href: '/tiec-sinh-nhat/', label: 'Tiệc sinh nhật', key: 'party' },
-  { href: '/blog/', label: 'Blog', key: 'blog' },
-];
+interface Props { solid?: boolean; current?: string; lang?: 'vi' | 'en' }
+const { solid = false, current = '', lang = 'vi' } = Astro.props;
+const en = lang === 'en';
+const links = en
+  ? [
+      { href: '/en/', label: 'Home', key: 'home' },
+      { href: '/en/#menu', label: 'Menu', key: 'menu' },
+      { href: '/en/#space', label: 'The space', key: 'space' },
+      { href: '/en/#events', label: 'Birthdays', key: 'party' },
+      { href: '/en/#faq', label: 'FAQ', key: 'faq' },
+    ]
+  : [
+      { href: '/', label: 'Trang chủ', key: 'home' },
+      { href: '/thuc-don/', label: 'Thực đơn', key: 'menu' },
+      { href: '/khong-gian/', label: 'Không gian', key: 'space' },
+      { href: '/tiec-sinh-nhat/', label: 'Tiệc sinh nhật', key: 'party' },
+      { href: '/blog/', label: 'Blog', key: 'blog' },
+    ];
+const other = en ? { href: '/', label: 'VI', title: 'Tiếng Việt' } : { href: '/en/', label: 'EN', title: 'English' };
+const t = en
+  ? { book: 'Book a table', open: 'Open menu', close: 'Close menu', main: 'Main menu', mobile: 'Mobile menu', home: 'Trạm Nắng BBQ & More – Home' }
+  : { book: 'Đặt bàn', open: 'Mở menu', close: 'Đóng menu', main: 'Menu chính', mobile: 'Menu điện thoại', home: 'Trạm Nắng BBQ & More – Trang chủ' };
 ---
 <header class:list={['top', { always: solid }]} id="top">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="Trạm Nắng BBQ & More – Trang chủ">
+    <a class="logo" href={en ? '/en/' : '/'} aria-label={t.home}>
       <span><b>TRẠM NẮNG</b><small>BBQ &amp; MORE</small></span>
     </a>
-    <nav class="nav" aria-label="Menu chính">
+    <nav class="nav" aria-label={t.main}>
       {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>)}
-      <a href="#dat-ban" class="btn btn-rust">Đặt bàn</a>
-      <button class="menu-btn" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="m-menu">
+      <a href={other.href} class="lang" hreflang={en ? 'vi' : 'en'} title={other.title}>{other.label}</a>
+      <a href="#dat-ban" class="btn btn-rust">{t.book}</a>
+      <button class="menu-btn" type="button" aria-label={t.open} aria-expanded="false" aria-controls="m-menu" data-open={t.open} data-close={t.close}>
         <span></span><span></span><span></span>
       </button>
     </nav>
   </div>
-  <nav class="m-menu" id="m-menu" aria-label="Menu điện thoại" hidden>
+  <nav class="m-menu" id="m-menu" aria-label={t.mobile} hidden>
     {links.map((l) => <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}<svg><use href="#i-arrow"/></svg></a>)}
+    <a href={other.href} hreflang={en ? 'vi' : 'en'}>{other.title}<svg><use href="#i-arrow"/></svg></a>
   </nav>
 </header>
 
@@ -34,7 +49,7 @@ const links = [
     const set = (open: boolean) => {
       menu.hidden = !open;
       btn.setAttribute('aria-expanded', String(open));
-      btn.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+      btn.setAttribute('aria-label', (open ? btn.dataset.close : btn.dataset.open) ?? '');
       btn.classList.toggle('open', open);
     };
     btn.addEventListener('click', () => set(menu.hidden));

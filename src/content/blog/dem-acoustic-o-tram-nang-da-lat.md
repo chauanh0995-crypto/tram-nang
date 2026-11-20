@@ -1,7 +1,7 @@
 ---
 title: "Đêm acoustic ở Trạm Nắng: nghe nhạc mộc, ăn nướng, ngắm phố lên đèn"
 seoTitle: "Quán nướng có nhạc acoustic ở Đà Lạt – Trạm Nắng BBQ"
-description: "Trạm Nắng BBQ Đà Lạt có đêm nhạc acoustic: nghe nhạc mộc giữa sân cỏ đèn dây, ăn nướng và ngắm thành phố lên đèn. Gợi ý chỗ ngồi, món gọi và cách hỏi lịch diễn."
+description: "Trạm Nắng BBQ Đà Lạt có đêm nhạc acoustic: nghe nhạc mộc giữa sân cỏ đèn dây, ăn nướng và ngắm thành phố lên đèn. Thường diễn tối thứ Bảy hằng tuần."
 date: 2026-11-15
 cover: /images/flycam-dem-toan-canh.webp
 coverAlt: "Toàn cảnh Trạm Nắng về đêm, sân cỏ giăng đèn giữa thành phố Đà Lạt"
@@ -36,7 +36,7 @@ Xem đủ món và giá ở trang [Thực đơn](/thuc-don/).
 
 ## Lịch diễn
 
-Lịch acoustic có thể thay đổi theo tuần và theo thời tiết. Trước khi đi, bạn nhắn Zalo **0865 751 768** để hỏi lịch tối hôm đó và giữ bàn.
+Acoustic ở Trạm Nắng **thường diễn vào tối thứ Bảy hằng tuần**. Lịch cụ thể thay đổi theo từng tháng, nên trước khi đi bạn nhắn Zalo **0865 751 768** để hỏi lịch và giữ bàn.
 
 Quán mở cửa 15h – 22h, order cuối 21h30. Đến sớm ngắm hoàng hôn rồi ngồi luôn tới buổi nhạc là cách đi trọn vẹn nhất.
 

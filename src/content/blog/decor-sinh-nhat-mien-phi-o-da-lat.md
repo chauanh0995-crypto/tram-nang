@@ -20,10 +20,10 @@ Bàn được dựng trên sàn gỗ ngoài trời, nhìn thẳng ra thành ph�
 ## Đặt tiệc trong 3 bước
 
 1. **Nhắn quán** qua Zalo 0865 751 768: số người, ngày giờ, dịp gì và ý tưởng trang trí nếu có.
-2. **Chốt decor và thực đơn.** Quán tư vấn cách trang trí và gợi ý món theo số người.
+2. **Chốt decor và thực đơn.** Quán trang trí theo concept, hỗ trợ đặt bánh, hoa và gợi ý món theo số người.
 3. **Đến đúng giờ.** Bàn tiệc được chuẩn bị sẵn trước khi bạn tới.
 
-Khi đặt, bạn nên hỏi rõ quán chuẩn bị những gì và phần nào cần tự mang, ví dụ bánh kem hay hoa tươi theo ý riêng.
+Quán trang trí theo concept của quán và có hỗ trợ đặt bánh, hoa, nên bạn chỉ cần đến trải nghiệm. Nếu muốn tự mang bánh sinh nhật, quán không tính phí và hỗ trợ dao, dĩa, ly.
 
 ## Nên chọn giờ nào?
 
@@ -46,6 +46,8 @@ Quán mở cửa 15h – 22h, order cuối 21h30.
 - **Báo trước càng sớm càng tốt**, nhất là cuối tuần.
 - **Trời mưa không cần hủy.** Quán có khu trong nhà.
 - **Đi xe riêng thoải mái.** Quán gần trung tâm và có bãi đậu xe rộng.
+- **Tiệc đông người vẫn nhận.** Sức chứa của quán khoảng 800 khách.
+- **Thanh toán** bằng tiền mặt hoặc chuyển khoản.
 
 Xem thêm hình ảnh ở trang [Tiệc sinh nhật](/tiec-sinh-nhat/).
 

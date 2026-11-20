@@ -4,6 +4,8 @@ import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import WeatherMini from '../components/Weather.astro';
 import Amenities from '../components/Amenities.astro';
+import Faq from '../components/Faq.astro';
+import { faqGeneral, faqSchema } from '../data/faq';
 import SpaceSection from '../components/SpaceSection.astro';
 import PartySection from '../components/PartySection.astro';
 import { menu, picks, findDish, vnd } from '../data/menu';
@@ -28,10 +30,14 @@ const ticker = ['View tháp Vinaphone', 'Nướng than tại bàn', 'Gà Kampot'
   title="Trạm Nắng BBQ Đà Lạt – Quán nướng view tháp Vinaphone, decor sinh nhật miễn phí"
   description={`Trạm Nắng BBQ & More, 18 Đống Đa Đà Lạt: quán nướng view tháp Vinaphone và hoàng hôn thành phố, ${foodCount} món nướng, lẩu, decor sinh nhật miễn phí, có khu trong nhà, bãi đậu xe lớn. Đặt bàn ${site.phoneDisplay}.`}
   current="home"
+  schema={[faqSchema(faqGeneral)]}
+  alt={{ vi: '/', en: '/en/' }}
+  preload="/images/hero-hoang-hon-lon.webp"
 >
   <section class="hero" aria-label="Giới thiệu">
     <picture>
-      <img src="/images/hero-hoang-hon-lon.webp" alt="Bàn tiệc nướng và lẩu trên sàn gỗ Trạm Nắng lúc hoàng hôn, khách chỉ tay về phía tháp Vinaphone và thành phố Đà Lạt" fetchpriority="high">
+      <source media="(max-width: 820px)" srcset="/images/hero-hoang-hon-nho.webp">
+      <img src="/images/hero-hoang-hon-lon.webp" alt="Bàn tiệc nướng và lẩu trên sàn gỗ Trạm Nắng lúc hoàng hôn, khách chỉ tay về phía tháp Vinaphone và thành phố Đà Lạt" width="1920" height="1439" fetchpriority="high">
     </picture>
     <div class="wrap">
       <span class="eyebrow">BBQ &amp; More · Đà Lạt</span>
@@ -193,6 +199,8 @@ const ticker = ['View tháp Vinaphone', 'Nướng than tại bàn', 'Gà Kampot'
   <SpaceSection />
 
   <PartySection />
+
+  <Faq items={faqGeneral} />
 
   {posts.length > 0 && (
     <section id="blog">

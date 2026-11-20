@@ -3,8 +3,10 @@ import Base from '../layouts/Base.astro';
 import PartySection from '../components/PartySection.astro';
 import { findDish, vnd } from '../data/menu';
 import { site } from '../data/site';
+import Faq from '../components/Faq.astro';
+import { faqParty, faqSchema } from '../data/faq';
 
-const schema = [{
+const schema = [faqSchema(faqParty), {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
@@ -39,7 +41,7 @@ const photos = [
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Tiệc sinh nhật</nav>
       <span class="script">Sinh nhật · Kỷ niệm</span>
       <h1>Decor sinh nhật, kỷ niệm miễn phí</h1>
-      <p>Bàn tiệc có hoa, nến, đèn trên sàn gỗ nhìn ra thành phố Đà Lạt. Bạn báo trước, quán chuẩn bị.</p>
+      <p>Quán trang trí theo concept, hỗ trợ đặt bánh và hoa. Bạn chỉ cần đến trải nghiệm.</p>
     </div>
   </section>
 
@@ -76,4 +78,6 @@ const photos = [
       </div>
     </div>
   </section>
+
+  <Faq items={faqParty} title="Hỏi đáp về tiệc sinh nhật" lead="Những điều khách hay hỏi khi đặt tiệc sinh nhật, kỷ niệm ở Trạm Nắng." />
 </Base>

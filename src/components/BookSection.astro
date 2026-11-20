@@ -1,36 +1,39 @@
 ---
 import { site } from '../data/site';
+interface Props { lang?: 'vi' | 'en' }
+const { lang = 'vi' } = Astro.props;
+const en = lang === 'en';
 ---
 <section class="book" id="dat-ban">
   <img src="/images/ban-tiec-ngam-pho.webp" alt="" loading="lazy">
   <div class="wrap">
     <div class="reveal">
-      <span class="script">Giữ chỗ ngắm hoàng hôn</span>
-      <h2>Đặt bàn</h2>
-      <p>Gọi hoặc nhắn tin cho quán, báo số người, giờ đến và tên người đặt. Bàn sát lan can view đẹp nhanh hết vào cuối tuần, nên đặt sớm.</p>
+      <span class="script">{en ? 'Save your sunset seat' : 'Giữ chỗ ngắm hoàng hôn'}</span>
+      <h2>{en ? 'Book a table' : 'Đặt bàn'}</h2>
+      <p>{en ? 'Call or message us with your party size, arrival time and name. Railing tables with the best view go fast on weekends, so book early.' : 'Gọi hoặc nhắn tin cho quán, báo số người, giờ đến và tên người đặt. Bàn sát lan can view đẹp nhanh hết vào cuối tuần, nên đặt sớm.'}</p>
       {site.address && <p>📍 {site.mapsUrl ? <a href={site.mapsUrl} target="_blank" rel="noopener">{site.address}</a> : site.address}</p>}
-      {site.hours && <p>🕔 {site.hours}</p>}
+      {site.hours && <p>🕔 {en ? 'Open daily 15:00 – 22:00 (last order 21:30)' : site.hours}</p>}
       <a class="phone" href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
     </div>
     <div class="ways reveal">
       <a class="way" href={`tel:${site.phone}`}>
         <span class="ic" style="background:var(--rust)"><svg><use href="#i-phone"/></svg></span>
-        <span><b>Gọi điện</b><span>{site.phoneDisplay}</span></span>
+        <span><b>{en ? 'Call' : 'Gọi điện'}</b><span>{site.phoneDisplay}</span></span>
         <svg class="go" width="20" height="20"><use href="#i-arrow"/></svg>
       </a>
       <a class="way" href={site.zalo} target="_blank" rel="noopener">
         <span class="ic" style="background:var(--zalo)"><svg><use href="#i-zalo"/></svg></span>
-        <span><b>Nhắn Zalo</b><span>Zalo {site.phoneDisplay}</span></span>
+        <span><b>{en ? 'Zalo message' : 'Nhắn Zalo'}</b><span>Zalo {site.phoneDisplay}</span></span>
         <svg class="go" width="20" height="20"><use href="#i-arrow"/></svg>
       </a>
       <a class="way" href={site.messenger} target="_blank" rel="noopener">
         <span class="ic" style="background:linear-gradient(135deg,#0a7cff,#a334fa 60%,#ff5c87)"><svg><use href="#i-mess"/></svg></span>
-        <span><b>Nhắn Messenger</b><span>Fanpage Trạm Nắng Đà Lạt</span></span>
+        <span><b>{en ? 'Messenger' : 'Nhắn Messenger'}</b><span>{en ? 'Trạm Nắng Facebook page' : 'Fanpage Trạm Nắng Đà Lạt'}</span></span>
         <svg class="go" width="20" height="20"><use href="#i-arrow"/></svg>
       </a>
       <a class="way" href={site.mapsUrl} target="_blank" rel="noopener">
         <span class="ic" style="background:#1e8e3e"><svg><use href="#i-pin"/></svg></span>
-        <span><b>Chỉ đường</b><span>{site.address}</span></span>
+        <span><b>{en ? 'Directions' : 'Chỉ đường'}</b><span>{site.address}</span></span>
         <svg class="go" width="20" height="20"><use href="#i-arrow"/></svg>
       </a>
     </div>

@@ -1,5 +1,8 @@
 ---
 import { site } from '../data/site';
+interface Props { lang?: 'vi' | 'en' }
+const { lang = 'vi' } = Astro.props;
+const en = lang === 'en';
 ---
 <footer>
   <div class="wrap">
@@ -7,10 +10,13 @@ import { site } from '../data/site';
       <span><b>TRẠM NẮNG</b><small>BBQ &amp; MORE · ĐÀ LẠT</small></span>
     </a>
     <div>
-      Đặt bàn: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
+      {en ? 'Book a table' : 'Đặt bàn'}: <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
       {site.address && <><br>{site.address}</>}
-      {site.hours && <><br>Mở cửa {site.hours}</>}
-      <br><a href="/thuc-don/">Thực đơn</a> · <a href="/blog/">Blog</a>
+      <br>{en ? 'Open daily 15:00 – 22:00 (last order 21:30)' : `Mở cửa ${site.hours}`}
+      {en
+        ? <><br><a href="/en/#menu">Menu</a> · <a href="/en/#faq">FAQ</a> · <a href="/" hreflang="vi">Tiếng Việt</a></>
+        : <><br><a href="/thuc-don/">Thực đơn</a> · <a href="/khong-gian/">Không gian</a> · <a href="/tiec-sinh-nhat/">Tiệc sinh nhật</a> · <a href="/blog/">Blog</a>
+            <br><a href="/gioi-thieu/">Giới thiệu</a> · <a href="/lien-he/">Liên hệ</a> · <a href="/en/" hreflang="en">English</a></>}
     </div>
     <div class="social">
       <a href={site.facebook} target="_blank" rel="noopener" aria-label="Facebook Trạm Nắng"><svg><use href="#i-fb"/></svg></a>

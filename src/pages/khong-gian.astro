@@ -2,8 +2,10 @@
 import Base from '../layouts/Base.astro';
 import SpaceSection from '../components/SpaceSection.astro';
 import { site } from '../data/site';
+import Faq from '../components/Faq.astro';
+import { faqSpace, faqSchema } from '../data/faq';
 
-const schema = [{
+const schema = [faqSchema(faqSpace), {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
@@ -57,4 +59,6 @@ const areas = [
   </section>
 
   <SpaceSection amenities />
+
+  <Faq items={faqSpace} title="Hỏi đáp về không gian" lead="Chỗ ngồi, view, bãi xe và sức chứa của Trạm Nắng." />
 </Base>

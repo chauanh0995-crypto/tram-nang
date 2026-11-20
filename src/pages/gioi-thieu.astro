@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import { menu } from '../data/menu';
+import { site } from '../data/site';
+
+const food = menu.filter((g) => g.id !== 'do-uong');
+const foodCount = food.reduce((n, g) => n + g.items.filter((d) => !d.name.startsWith('Gọi thêm')).length, 0);
+
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Giới thiệu Trạm Nắng BBQ & More',
+  url: `${site.url}/gioi-thieu/`,
+  about: { '@id': `${site.url}/#restaurant` },
+  inLanguage: 'vi',
+}, {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${site.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Giới thiệu', item: `${site.url}/gioi-thieu/` },
+  ],
+}];
+
+const facts = [
+  { k: 'Loại hình', v: 'Quán nướng, lẩu ngoài trời (BBQ & More)' },
+  { k: 'Địa chỉ', v: site.address },
+  { k: 'Giờ mở cửa', v: '15h – 22h, tất cả các ngày trong tuần (order cuối 21h30)' },
+  { k: 'Đặt bàn', v: `Điện thoại, Zalo ${site.phoneDisplay} hoặc Messenger` },
+  { k: 'Thực đơn', v: `${foodCount} món ăn: nướng tại bàn, lẩu, món ăn chơi, cơm và mì` },
+  { k: 'Mức giá', v: 'Món nướng từ 79.000đ, lẩu từ 250.000đ, combo 2–3 người 390.000đ' },
+  { k: 'Sức chứa', v: `Khoảng ${site.capacity} khách, nhận đoàn đông` },
+  { k: 'Không gian', v: 'Sàn gỗ ngắm phố, sân cỏ đèn dây, khu trong nhà' },
+  { k: 'Tiện ích', v: 'Gần trung tâm, bãi đậu xe rộng' },
+  { k: 'Tiệc', v: 'Decor sinh nhật, kỷ niệm miễn phí; hỗ trợ đặt bánh và hoa' },
+  { k: 'Âm nhạc', v: 'Acoustic thường vào tối thứ Bảy hằng tuần' },
+  { k: 'Thanh toán', v: 'Tiền mặt, chuyển khoản' },
+];
+---
+<Base
+  title="Giới thiệu Trạm Nắng BBQ & More – quán nướng view tháp Vinaphone Đà Lạt"
+  description={`Trạm Nắng BBQ & More là quán nướng, lẩu ngoài trời tại ${site.address}: view tháp Vinaphone, ${foodCount} món ăn, decor sinh nhật miễn phí, sức chứa khoảng ${site.capacity} khách.`}
+  current="about"
+  solidHeader
+  schema={schema}
+>
+  <section class="page-hero">
+    <img src="/images/san-go-hoang-hon.webp" alt="" loading="eager" style="object-position:50% 38%">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Trang chủ</a> / Giới thiệu</nav>
+      <span class="script">Giới thiệu</span>
+      <h1>Về Trạm Nắng BBQ &amp; More</h1>
+      <p>Quán nướng, lẩu ngoài trời nhìn ra tháp Vinaphone và trung tâm Đà Lạt.</p>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap about-grid">
+      <div class="prose reveal">
+        <h2>Trạm Nắng là quán gì?</h2>
+        <p><strong>Trạm Nắng BBQ &amp; More</strong> là quán nướng và lẩu ngoài trời ở {site.address}. Quán nằm trên cao, có sàn gỗ nhìn thẳng ra tháp Vinaphone và các đồi nhà trung tâm thành phố, nên khách thường đến trước hoàng hôn để vừa ăn vừa ngắm trời đổi màu.</p>
+
+        <h2>Bốn điều làm nên Trạm Nắng</h2>
+        <ul>
+          <li><strong>View tháp Vinaphone.</strong> Sàn gỗ ngoài trời nhìn ra trung tâm Đà Lạt, đẹp nhất lúc hoàng hôn và khi thành phố lên đèn.</li>
+          <li><strong>Món nướng, menu đa dạng.</strong> {foodCount} món ăn, từ nướng than tại bàn, gà Kampot, sườn tảng đút lò đến lẩu cá tầm. Xem <a href="/thuc-don/">thực đơn và giá</a>.</li>
+          <li><strong>Decor sinh nhật, kỷ niệm miễn phí.</strong> Quán trang trí theo concept, hỗ trợ đặt bánh và hoa. Xem trang <a href="/tiec-sinh-nhat/">Tiệc sinh nhật</a>.</li>
+          <li><strong>Tiện ích đầy đủ.</strong> Có khu trong nhà cho ngày mưa, gần trung tâm, bãi đậu xe rộng. Xem trang <a href="/khong-gian/">Không gian</a>.</li>
+        </ul>
+
+        <h2>Ai hợp với Trạm Nắng?</h2>
+        <ul>
+          <li>Nhóm bạn và gia đình muốn ăn nướng, lẩu ngoài trời.</li>
+          <li>Cặp đôi tìm chỗ ngắm hoàng hôn và thành phố về đêm.</li>
+          <li>Người cần tổ chức sinh nhật, kỷ niệm có trang trí sẵn.</li>
+          <li>Đoàn khách đông: quán có sức chứa khoảng {site.capacity} khách.</li>
+        </ul>
+      </div>
+
+      <aside class="factbox reveal">
+        <h2>Thông tin nhanh</h2>
+        <dl>
+          {facts.map((f) => <><dt>{f.k}</dt><dd>{f.v}</dd></>)}
+        </dl>
+        <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-rust">Xem trên Google Maps <svg><use href="#i-arrow"/></svg></a>
+      </aside>
+    </div>
+  </section>
+</Base>

@@ -16,8 +16,11 @@ interface Props {
   current?: string;
   schema?: Record<string, unknown>[];
   preload?: string;
+  lang?: 'vi' | 'en';
+  alt?: { vi: string; en: string };
+  noBook?: boolean;
 }
-const { title, description, image = site.ogImage, type = 'website', solidHeader = false, current, schema = [], preload } = Astro.props;
+const { title, description, image = site.ogImage, type = 'website', solidHeader = false, current, schema = [], preload, lang = 'vi', alt, noBook = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL(image, site.url).href;
 
@@ -32,6 +35,10 @@ const restaurant: Record<string, unknown> = {
   servesCuisine: ['BBQ', 'Lẩu', 'Món Việt'],
   priceRange: '15.000đ – 390.000đ',
   hasMap: site.mapsUrl,
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  paymentAccepted: site.payment,
+  currenciesAccepted: 'VND',
+  maximumAttendeeCapacity: site.capacity,
   amenityFeature: ['Khu vực trong nhà', 'Chỗ ngồi ngoài trời', 'Bãi đậu xe lớn', 'Trang trí tiệc sinh nhật miễn phí'].map((name) => ({ '@type': 'LocationFeatureSpecification', name, value: true })),
   openingHoursSpecification: site.opens ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: site.opens, closes: site.closes }] : undefined,
   hasMenu: `${site.url}/thuc-don/`,
@@ -42,7 +49,7 @@ const restaurant: Record<string, unknown> = {
 const jsonLd = [restaurant, ...schema];
 ---
 <!doctype html>
-<html lang="vi">
+<html lang={lang}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +63,10 @@ const jsonLd = [restaurant, ...schema];
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
 <meta property="og:image" content={ogImage}>
-<meta property="og:locale" content="vi_VN">
+<meta property="og:locale" content={lang === 'en' ? 'en_US' : 'vi_VN'}>
+{alt && <link rel="alternate" hreflang="vi" href={new URL(alt.vi, site.url).href}>}
+{alt && <link rel="alternate" hreflang="en" href={new URL(alt.en, site.url).href}>}
+{alt && <link rel="alternate" hreflang="x-default" href={new URL(alt.vi, site.url).href}>}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="sitemap" href="/sitemap-index.xml">
@@ -68,12 +78,12 @@ const jsonLd = [restaurant, ...schema];
 </head>
 <body>
 <Icons />
-<Header solid={solidHeader} current={current} />
+<Header solid={solidHeader} current={current} lang={lang} />
 <main>
   <slot />
-  <BookSection />
+  {!noBook && <BookSection lang={lang} />}
 </main>
-<Footer />
+<Footer lang={lang} />
 <script>
   const top = document.getElementById('top')!;
   if (!top.classList.contains('always')) {

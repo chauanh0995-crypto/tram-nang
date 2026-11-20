@@ -1,0 +1,21 @@
+---
+import type { QA } from '../data/faq';
+interface Props { items: QA[]; title?: string; lead?: string }
+const { items, title = 'Câu hỏi thường gặp', lead = 'Những điều khách hay hỏi trước khi ghé Trạm Nắng.' } = Astro.props;
+---
+<section class="faq" id="hoi-dap">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">Hỏi – Đáp</span><h2 style="margin-top:10px">{title}</h2></div>
+      <p>{lead}</p>
+    </div>
+    <div class="faq-list">
+      {items.map((i, n) => (
+        <details class="reveal" open={n === 0}>
+          <summary><h3>{i.q}</h3><span class="pm" aria-hidden="true"></span></summary>
+          <p>{i.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

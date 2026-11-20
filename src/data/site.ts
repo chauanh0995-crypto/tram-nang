@@ -18,5 +18,9 @@ export const site = {
   hours: '15:00 – 22:00 hằng ngày (nhận order cuối lúc 21:30)',
   opens: '15:00',
   closes: '22:00',
+  geo: { lat: 11.9270808, lng: 108.4409492 },
+  capacity: 800,
+  payment: 'Tiền mặt, chuyển khoản',
+  acoustic: 'Thường vào tối thứ Bảy hằng tuần, lịch thay đổi theo tháng',
   ogImage: '/images/og-image.jpg',
 };
