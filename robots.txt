@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://tramnang.vn/sitemap-index.xml
+
+# Trợ lý AI được phép đọc web
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
