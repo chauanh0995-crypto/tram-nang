@@ -43,7 +43,7 @@ const restaurant: Record<string, unknown> = {
   openingHoursSpecification: site.opens ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: site.opens, closes: site.closes }] : undefined,
   hasMenu: `${site.url}/thuc-don/`,
   acceptsReservations: 'True',
-  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.ward, addressRegion: 'Lâm Đồng', addressCountry: 'VN' },
+  address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.ward, addressRegion: 'Lâm Đồng', postalCode: '670000', addressCountry: 'VN' },
   sameAs: [site.facebook, site.tiktok],
 };
 const website: Record<string, unknown> = {
