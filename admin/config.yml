@@ -1,0 +1,38 @@
+# Trình soạn bài Trạm Nắng (Sveltia CMS).
+# Trên máy: mở http://localhost:5520/admin/ bằng Chrome/Edge, chọn "Work with Local Repository",
+# trỏ tới thư mục tram-nang-bbq.
+# Khi đưa lên mạng: sửa repo bên dưới thành kho GitHub thật.
+backend:
+  name: github
+  repo: chauanh0995-crypto/tram-nang
+  branch: main
+
+locale: vi
+media_folder: public/images/blog
+public_folder: /images/blog
+site_url: https://tramnang.vn
+display_url: https://tramnang.vn
+
+collections:
+  - name: blog
+    label: Bài viết
+    label_singular: bài viết
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}} · {{date | date('DD/MM/YYYY')}}"
+    sortable_fields: [date, title]
+    preview_path: "blog/{{slug}}/"
+    fields:
+      - { name: title, label: "Tiêu đề bài", widget: string }
+      - { name: seoTitle, label: "Tiêu đề SEO (hiện trên Google, nên dưới 60 ký tự)", widget: string, required: false }
+      - { name: description, label: "Mô tả SEO (120–160 ký tự)", widget: text, pattern: ['^[\s\S]{50,170}$', "Nên dài 50–170 ký tự"] }
+      - { name: date, label: "Ngày đăng", widget: datetime, format: "YYYY-MM-DD", time_format: false }
+      - { name: updated, label: "Ngày cập nhật", widget: datetime, format: "YYYY-MM-DD", time_format: false, required: false }
+      - { name: cover, label: "Ảnh đại diện", widget: image }
+      - { name: coverAlt, label: "Mô tả ảnh đại diện (cho Google)", widget: string }
+      - { name: category, label: "Chuyên mục", widget: select, options: ["Món ngon", "Không gian", "Tiệc & Decor", "Sự kiện", "Kinh nghiệm"], required: false }
+      - { name: draft, label: "Bản nháp (chưa đăng)", widget: boolean, default: false }
+      - { name: body, label: "Nội dung", widget: markdown }
